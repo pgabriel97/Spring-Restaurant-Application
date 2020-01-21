@@ -1,14 +1,15 @@
 package com.restaurant.Restaurant.Controller;
 
+import com.restaurant.Restaurant.Model.Franchise;
 import com.restaurant.Restaurant.Model.Restaurant;
 import com.restaurant.Restaurant.Service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
-import java.sql.*;
-import java.util.List;
+import java.sql.SQLException;
 
 @Controller
 public class RestaurantController {
@@ -16,24 +17,17 @@ public class RestaurantController {
     @Autowired
     private RestaurantService restaurantService;
 
-    @GetMapping("/")
-    public String homePage()
-    {
-        return "home";
-    }
-
-    @GetMapping("/restaurants")
-    public List<Restaurant> allRestaurantsPage() {
-        return restaurantService.getAllRestaurants();
-    }
-
-    @GetMapping("/restaurants/{id}")
+    @GetMapping("/restaurant/{id}")
     public String loadRestaurantPage(Model model, @PathVariable int id) throws SQLException {
 
         Restaurant restaurantData = restaurantService.getRestaurantById(id);
-        model.addAttribute("restaurantName", restaurantData.getName());
-        model.addAttribute("restaurantAddress", restaurantData.getAddress());
-        model.addAttribute("restaurantType", restaurantData.getType());
+        Franchise franchiseData = restaurantService.getFranchiseByRestaurantId(id);
+
+        model.addAttribute("restaurantAddress", restaurantData.getAdress());
+        model.addAttribute("restaurantSeats", restaurantData.getSeatCount());
+        model.addAttribute("franchiseName", franchiseData.getName());
+        model.addAttribute("franchiseType", franchiseData.getType());
+
         return "restaurant";
     }
 }

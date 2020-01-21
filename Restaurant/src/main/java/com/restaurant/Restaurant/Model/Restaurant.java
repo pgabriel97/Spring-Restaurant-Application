@@ -1,34 +1,37 @@
 package com.restaurant.Restaurant.Model;
 
-import java.util.UUID;
-
 public class Restaurant {
-
     private final int id;
-    private final String name;
-    private final String address;
-    private final String type;
+    private final int brandId;
+    private final String adress;
+    private final int seatCount;
+    private final int menuId;
+
+    public Restaurant(int id, int brandId, String adress, int seatCount, int menuId) {
+        this.id = id;
+        this.brandId = brandId;
+        this.adress = adress;
+        this.seatCount = seatCount;
+        this.menuId = menuId;
+    }
 
     public int getId() {
-        return this.id;
+        return id;
     }
 
-    public String getName() {
-        return name;
+    public int getBrandId() {
+        return brandId;
     }
 
-    public String getAddress() {
-        return address;
+    public String getAdress() {
+        return adress;
     }
 
-    public String getType() {
-        return type;
+    public int getSeatCount() {
+        return seatCount;
     }
 
-    public Restaurant(int id, String name, String address, String type) {
-        this.id = id;
-        this.name = name;
-        this.address = address;
-        this.type = type;
+    public int getMenuId() {
+        return menuId;
     }
 }

@@ -1,24 +1,14 @@
 package com.restaurant.Restaurant.Service;
 
+import com.restaurant.Restaurant.Model.Franchise;
 import com.restaurant.Restaurant.Model.Restaurant;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.*;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
 
 @Service
 public class RestaurantService {
-
-    private List<Restaurant> restaurants = Arrays.asList(
-            new Restaurant(1, "McDonalds", "Unirii", "Fast Food"),
-            new Restaurant(2, "KFC", "Universitate", "Fast Food"),
-            new Restaurant(3, "La Placinte", "Romana", "General"));
-
-    public List<Restaurant> getAllRestaurants() {
-        return restaurants;
-    }
 
     public Restaurant getRestaurantById(int id) throws SQLException {
         Connection c = DriverManager
@@ -29,9 +19,30 @@ public class RestaurantService {
         ResultSet rs = pst.executeQuery();
 
         rs.next();
-        Restaurant restaurant = new Restaurant(rs.getInt(1), rs.getString(2),
-                rs.getString(3), rs.getString(4));
+        Restaurant restaurant = new Restaurant(rs.getInt(1),
+                rs.getInt(2), rs.getString(3),
+                rs.getInt(4), rs.getInt(5));
 
         return restaurant;
+    }
+
+    public Franchise getFranchiseByRestaurantId(int id) throws SQLException {
+        Connection c = DriverManager
+                .getConnection("jdbc:postgresql://localhost:5432/restaurant",
+                        "postgres", "12345");
+
+        PreparedStatement pst = c.prepareStatement("SELECT brand_id FROM restaurant WHERE id = " + id);
+        ResultSet rs = pst.executeQuery();
+
+        rs.next();
+        int brandId = rs.getInt(1);
+        pst = c.prepareStatement("SELECT * FROM franchise WHERE id = " + brandId);
+        rs = pst.executeQuery();
+
+        rs.next();
+        Franchise franchise = new Franchise(rs.getInt(1), rs.getString(2),
+                rs.getString(3));
+
+        return franchise;
     }
 }
