@@ -1,0 +1,15 @@
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Restaurant</title>
+</head>
+<body>
+<h1>Restaurant</h1>
+<p>Aceasta e pagina unui restaurant.</p>
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+        aria-expanded="false" aria-controls="navbar"></button>
+<p th:text="${restaurantName}">Restaurant name</p>
+<p th:text="${restaurantAddress}">Restaurant location</p>
+<p th:text="${restaurantType}">Restaurant type</p>
+</body>
+</html>
