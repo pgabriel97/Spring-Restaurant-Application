@@ -3,13 +3,13 @@ package com.restaurant.Restaurant.Controller;
 import com.restaurant.Restaurant.Model.Restaurant;
 import com.restaurant.Restaurant.Service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 public class RestaurantController {
 
     @Autowired
@@ -21,7 +21,11 @@ public class RestaurantController {
     }
 
     @GetMapping("/restaurants/{id}")
-    public Restaurant restaurantPage(@PathVariable int id) {
-        return restaurantService.getRestaurantById(id);
+    public String loadRestaurantPage(Model model, @PathVariable int id) {
+        Restaurant restaurantData = restaurantService.getRestaurantById(id);
+        model.addAttribute("restaurantName", restaurantData.getName());
+        model.addAttribute("restaurantAddress", restaurantData.getAddress());
+        model.addAttribute("restaurantType", restaurantData.getType());
+        return "restaurant";
     }
 }
