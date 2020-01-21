@@ -4,10 +4,43 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 
+import java.sql.*;
+
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class })
 public class RestaurantApplication {
 
-	public static void main(String[] args) {
+	static final public String[] sqlCommands = new String[]
+	{
+			"DROP TABLE IF EXISTS restaurant",
+		"CREATE TABLE IF NOT EXISTS RESTAURANT (ID INT PRIMARY KEY NOT NULL, NAME TEXT NOT NULL);",
+			"INSERT INTO restaurant (id, name) VALUES (1, 'Mc'), (2, 'KFC'), (3, 'Pizza Hut');"
+	};
+
+	public static void main(String[] args) throws SQLException {
+
+		Connection c = null;
+		try {
+			Class.forName("org.postgresql.Driver");
+			c = DriverManager
+					.getConnection("jdbc:postgresql://localhost:5432/restaurant",
+							"postgres", "12345");
+
+			Statement stmt;
+
+			// Create and populate database if it isn't already
+			for (String sqlCommand : sqlCommands) {
+				stmt = c.createStatement();
+				stmt.executeUpdate(sqlCommand);
+				stmt.close();
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.err.println(e.getClass().getName()+": "+e.getMessage());
+			System.exit(0);
+		}
+		System.out.println("Opened database successfully");
+
 		SpringApplication.run(RestaurantApplication.class, args);
 	}
 
