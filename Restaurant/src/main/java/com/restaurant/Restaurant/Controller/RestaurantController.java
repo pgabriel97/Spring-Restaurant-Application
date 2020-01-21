@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.*;
 import java.util.List;
 
 @Controller
@@ -15,13 +16,20 @@ public class RestaurantController {
     @Autowired
     private RestaurantService restaurantService;
 
+    @GetMapping("/")
+    public String homePage()
+    {
+        return "home";
+    }
+
     @GetMapping("/restaurants")
     public List<Restaurant> allRestaurantsPage() {
         return restaurantService.getAllRestaurants();
     }
 
     @GetMapping("/restaurants/{id}")
-    public String loadRestaurantPage(Model model, @PathVariable int id) {
+    public String loadRestaurantPage(Model model, @PathVariable int id) throws SQLException {
+
         Restaurant restaurantData = restaurantService.getRestaurantById(id);
         model.addAttribute("restaurantName", restaurantData.getName());
         model.addAttribute("restaurantAddress", restaurantData.getAddress());

@@ -12,8 +12,11 @@ public class RestaurantApplication {
 	static final public String[] sqlCommands = new String[]
 	{
 			"DROP TABLE IF EXISTS restaurant",
-		"CREATE TABLE IF NOT EXISTS RESTAURANT (ID INT PRIMARY KEY NOT NULL, NAME TEXT NOT NULL);",
-			"INSERT INTO restaurant (id, name) VALUES (1, 'Mc'), (2, 'KFC'), (3, 'Pizza Hut');"
+		"CREATE TABLE IF NOT EXISTS RESTAURANT (ID INT PRIMARY KEY NOT NULL, NAME TEXT NOT NULL," +
+				" ADDRESS TEXT NOT NULL, TYPE TEXT NOT NULL);",
+			"INSERT INTO restaurant (id, name, address, type) VALUES (1, 'Mc', 'Unirii', 'Fast food'), " +
+					"(2, 'KFC', 'Lujerului', 'Fast food'), " +
+					"(3, 'Pizza Hut', 'Berceni', 'Pizza');"
 	};
 
 	public static void main(String[] args) throws SQLException {
