@@ -33,6 +33,7 @@ public class FranchiseController {
         Franchise franchiseData = franchiseService.getFranchiseById(id);
         model.addAttribute("franchiseName", franchiseData.getName());
         model.addAttribute("franchiseType", franchiseData.getType());
+        model.addAttribute("franchiseGrade", franchiseService.getFranchiseGrade(id));
         return "franchise";
     }
 

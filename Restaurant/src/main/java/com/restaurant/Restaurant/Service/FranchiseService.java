@@ -43,4 +43,19 @@ public class FranchiseService {
 
         return franchiseList;
     }
+
+    public float getFranchiseGrade(int id) throws SQLException {
+        Connection c = DriverManager
+                .getConnection("jdbc:postgresql://localhost:5432/restaurant",
+                        "postgres", "12345");
+
+        PreparedStatement pst = c.prepareStatement("SELECT AVG(grade) as gr from RESTAURANT where brand_id = " + id +
+                "AND grade <> 0");
+        ResultSet rs = pst.executeQuery();
+
+        rs.next();
+        System.out.println(rs.getFloat("gr"));
+
+        return rs.getFloat("gr");
+    }
 }

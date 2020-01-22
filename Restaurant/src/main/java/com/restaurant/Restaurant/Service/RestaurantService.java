@@ -19,12 +19,29 @@ public class RestaurantService {
         ResultSet rs = pst.executeQuery();
 
         rs.next();
+
         Restaurant restaurant = new Restaurant(rs.getInt(1),
-                rs.getInt(2), rs.getString(3),
-                rs.getInt(4), rs.getInt(5));
+                    rs.getInt(2), rs.getString(3),
+                    rs.getInt(4), rs.getInt(5));
 
         return restaurant;
     }
+
+    public float getRestaurantGrade(int id) throws SQLException {
+        Connection c = DriverManager
+                .getConnection("jdbc:postgresql://localhost:5432/restaurant",
+                        "postgres", "12345");
+
+        // Getting all ratings for this restaurant from table Ratings
+        PreparedStatement pst = c.prepareStatement("SELECT AVG(grade) as gr from rating where id_restaurant = " + id);
+        ResultSet rs = pst.executeQuery();
+
+        rs.next();
+
+        // Returning the average rating to be displayed on browser
+        return rs.getFloat("gr");
+    }
+
 
     public Franchise getFranchiseByRestaurantId(int id) throws SQLException {
         Connection c = DriverManager

@@ -14,22 +14,26 @@ public class RestaurantApplication {
 			"DROP TABLE IF EXISTS franchise",
 			"DROP TABLE IF EXISTS restaurant",
 			"DROP TABLE IF EXISTS menu",
-			"DROP TABLE IF EXISTS food",
+			"DROP TABLE IF EXISTS rating",
 
-		"CREATE TABLE IF NOT EXISTS FRANCHISE (ID INT PRIMARY KEY NOT NULL, NAME TEXT NOT NULL, TYPE TEXT NOT NULL);",
+		"CREATE TABLE IF NOT EXISTS FRANCHISE (ID INT PRIMARY KEY NOT NULL, " +
+				"NAME TEXT NOT NULL, TYPE TEXT NOT NULL, GRADE FLOAT(2) NOT NULL);",
 			"CREATE TABLE IF NOT EXISTS RESTAURANT (ID INT PRIMARY KEY NOT NULL, " +
-					"BRAND_ID INT NOT NULL, ADDRESS TEXT NOT NULL, SEAT_COUNT INT NOT NULL, MENU_ID INT NOT NULL);",
-			"CREATE TABLE IF NOT EXISTS MENU (ID INT NOT NULL, ID_FOOD INT NOT NULL, PRICE INT NOT NULL, PRIMARY KEY (ID, ID_FOOD));",
-			"CREATE TABLE IF NOT EXISTS FOOD (ID INT PRIMARY KEY NOT NULL, NAME TEXT NOT NULL);",
+					"BRAND_ID INT NOT NULL, ADDRESS TEXT NOT NULL, SEAT_COUNT INT NOT NULL, MENU_ID INT NOT NULL, GRADE FLOAT(2) NOT NULL);",
+			"CREATE TABLE IF NOT EXISTS MENU (ID INT NOT NULL, ORDER_NO INT NOT NULL, " +
+					"FOOD_NAME TEXT NOT NULL, PRICE INT NOT NULL, PRIMARY KEY (ID, ORDER_NO));",
+			"CREATE TABLE IF NOT EXISTS RATING (ID_RESTAURANT INT NOT NULL, ID_USER INT NOT NULL, " +
+					"GRADE INT NOT NULL, PRIMARY KEY (ID_RESTAURANT, ID_USER));",
 
-			"INSERT INTO franchise (id, name, type) VALUES (1, 'Mc', 'Fast food'), " +
-					"(2, 'KFC', 'Fast food'), " +
-					"(3, 'Pizza Hut', 'Pizza');",
-			"INSERT INTO restaurant (id, brand_id, address, seat_count, menu_id)" +
-					" VALUES (1, 1, 'Unirii', 30, 1);",
-			"INSERT INTO menu (id, id_food, price)" +
-					" VALUES (1, 1, 15);",
-			"INSERT INTO food (id, name) VALUES (1, 'Sandwich'), (2, 'Salad'), (3, 'Shawarma'), (4, 'Pizza'), (5, 'Cake');"
+			"INSERT INTO franchise (id, name, type, grade) VALUES (1, 'Mc', 'Fast food', 8.5), " +
+					"(2, 'KFC', 'Fast food', 0), " +
+					"(3, 'Pizza Hut', 'Pizza', 0);",
+			"INSERT INTO restaurant (id, brand_id, address, seat_count, menu_id, grade)" +
+					" VALUES (1, 1, 'Unirii', 30, 1, 8.5), (2, 1, 'Pacii', 20, 1, 0), (3, 2, 'Dristor', 10, 2, 0);",
+			"INSERT INTO menu (id, order_no, food_name, price)" +
+					" VALUES (1, 1, 'Sandwich', 15), (1, 2, 'Salad', 10), (2, 1, 'Shawarma', 17), (3, 1, 'Pizza', 23), (2, 2, 'Cake', 5);",
+			"INSERT INTO rating (id_restaurant, id_user, grade)" +
+					" VALUES (1, 1, 9), (1, 2, 8)"
 	};
 
 	public static void main(String[] args) throws SQLException {

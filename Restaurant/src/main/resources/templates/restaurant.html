@@ -8,9 +8,31 @@
 <p>Aceasta e pagina unui restaurant.</p>
 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
         aria-expanded="false" aria-controls="navbar"></button>
-<p th:text="${restaurantAddress}">Restaurant address</p>
-<p th:text="${restaurantSeats}">Restaurant seats</p>
-<p th:text="${franchiseName}">Franchise name</p>
-<p th:text="${franchiseType}">Franchise type</p>
+<p> Adresa: <span th:text="${restaurantAddress}">Restaurant address</span></p>
+<p> Numar de locuri: <span th:text="${restaurantSeats}">Restaurant seats</span></p>
+<p> Apartine de franciza: <span th:text="${franchiseName}">Franchise name</span></p>
+<p> Tip: <span th:text="${franchiseType}">Franchise type</span></p>
+<p> Nota medie: <span th:text="${averageRating}">Rating</span></p>
+
+
+<!--<form method="post" action="#" th:object="${ratingGrade}" th:action="@{/addRating}">-->
+    <!--<select>-->
+        <!--<option th:each="i : ${#numbers.sequence(1, 10)}" th:value="${i}" th:text="${i}">-->
+        <!--</option>-->
+    <!--</select>-->
+    <!--<button type="submit">Add</button>-->
+<!--</form>-->
+
+
+<!--<select th:field="*{reservation}">-->
+    <!--<option th:each="i : ${#numbers.sequence(1, 10)}" th:value="${i}" th:text="${i}">-->
+    <!--</option>-->
+<!--</select>-->
+
+<br>
+
+<h1>Meniu</h1>
+<ul th:each="menu : ${menuList}">
+    <li> <span th:text="${menu.foodName}">Food name</span> - <span th:text="${menu.price}">Price</span> lei</li>
 </body>
 </html>
