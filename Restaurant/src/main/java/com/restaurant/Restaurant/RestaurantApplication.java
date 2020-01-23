@@ -3,6 +3,7 @@ package com.restaurant.Restaurant;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.sql.*;
 
@@ -44,11 +45,11 @@ public class RestaurantApplication {
 			"INSERT INTO rating (id_restaurant, id_user, grade)" +
 					" VALUES (1, 1, 9), (1, 2, 8)",
 			"INSERT INTO users(username,password,enabled)" +
-					" VALUES ('ana','ana', true);",
+					" VALUES ('ana','{noop}ana', true);",
 			"INSERT INTO users(username,password,enabled) " +
-					"VALUES ('gabi','gabi', true);",
+					"VALUES ('gabi','{noop}gabi', true);",
 			"INSERT INTO users(username,password,enabled) " +
-					"VALUES ('enduser','enduser', true);",
+					"VALUES ('enduser','{noop}enduser', true);",
 			"INSERT INTO user_roles (username, role) " +
 					"VALUES ('ana', 'ROLE_ADMIN');",
 			"INSERT INTO user_roles (username, role) " +
@@ -59,6 +60,7 @@ public class RestaurantApplication {
 
 	public static void main(String[] args) throws SQLException {
 
+		System.out.println(new BCryptPasswordEncoder().encode("123"));
 		Connection c = null;
 		try {
 			Class.forName("org.postgresql.Driver");
