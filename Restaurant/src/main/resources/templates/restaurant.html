@@ -52,6 +52,7 @@
         <h1 id="restaurant_name"><span th:text="${restaurantName}">Nume restaurant</span> &emsp;(<span
                 th:text="${averageRating}">Rating</span> / 10)</h1>
     </div>
+    <a th:href="@{/reservation(restaurantId=${restaurantId})}">Make a reservation</a>
     <div id="belongs_to_franchise">
         <p>Apartine de franciza <b><span th:text="${franchiseName}">Franchise name</span></b></p>
     </div>

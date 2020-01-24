@@ -18,6 +18,7 @@ public class RestaurantApplication {
 			"DROP TABLE IF EXISTS rating",
 			"DROP TABLE IF EXISTS user_roles",
 			"DROP TABLE IF EXISTS users",
+			"DROP TABLE IF EXISTS reservation",
 
 
 			/*"CREATE TABLE IF NOT EXISTS FRANCHISE (ID INT PRIMARY KEY NOT NULL, " +

@@ -20,3 +20,7 @@ INSERT INTO menu (id, order_no, food_name, price)
 INSERT INTO rating (id_restaurant, id_user, grade) VALUES (1, 1, 9), (1, 2, 8)",
 
 INSERT INTO COMMENT (ID_RESTAURANT, ID_USER, COMMENT_TEXT) VALUES (1, 1, 'Misto!'), (1, 2, 'Imi place restaurantul vostru!')",
+INSERT INTO rating (id_restaurant, id_user, grade) VALUES (1, 1, 9), (1, 2, 8);
+
+INSERT INTO reservation (id_restaurant, id_user, start_date ,guest_number)
+            VALUES (1, 'ana', current_date,current_time, 3), (2, 'ana', current_date,current_time, 1),(2, 'gabi',current_date,current_time, 2);
