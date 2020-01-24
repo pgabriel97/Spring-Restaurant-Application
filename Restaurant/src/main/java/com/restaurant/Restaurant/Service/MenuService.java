@@ -18,7 +18,6 @@ public class MenuService {
         PreparedStatement pst = c.prepareStatement("SELECT * from menu where id = " + id + " ORDER BY order_no");
         ResultSet rs = pst.executeQuery();
 
-        rs.next();
         List<Menu> menuList = new ArrayList<>();
 
         while (rs.next()) {

@@ -13,6 +13,7 @@ INSERT INTO franchise (id, name, type, grade)
 INSERT INTO restaurant (id, brand_id, name, address, seat_count, menu_id, grade, img)
             VALUES (1, 1, 'McDonalds Unirii', 'Unirii', 30, 1, 8.5, 'mc1.jpg'), (2, 1, 'KFC Pacii', 'Pacii', 20, 1, 0, 'kfc.jpg'),
                                (3, 2, 'Pizza Hut ParkLake', 'Dristor', 10, 2, 0, 'pizzahut.jpg');
+
 INSERT INTO menu (id, order_no, food_name, price)
             VALUES (1, 1, 'Sandwich', 15), (1, 2, 'Salad', 10), (2, 1, 'Shawarma', 17), (3, 1, 'Pizza', 23), (2, 2, 'Cake', 5);
 

@@ -6,7 +6,7 @@
 
     <style>
         body {
-            background-color: #F2FDFF;
+            background-color: #F9F9F9;
         }
 
         #title_div {
@@ -25,9 +25,24 @@
         }
 
         #info_div {
-        border: solid 4px #1D314C;
+            border: solid 4px #1D314C;
             border-radius: 5px;
+            width: 65%;
+            font-size:20px
         }
+
+        #image {
+        border: solid 4px #1D314C;
+        position: relative;
+        height: 200px;
+        float: right;
+        margin-right: 40px;
+        }
+
+        #menu_item {
+        font-size: 20px;
+        }
+
     </style>
 
 </head>
@@ -41,9 +56,9 @@
         <p>Apartine de franciza <b><span th:text="${franchiseName}">Franchise name</span></b></p>
     </div>
 
+    <img id="image" src="${srcImageURL}" th:src="${thSrcImageURL}" />
 
     <p th:text="${imageURL}"> </p>
-    <img src="${srcImageURL}" width="1000" th:src="${thSrcImageURL}"/>
     <h3>Informații generale</h3>
     <div id="info_div">
         <ul>
@@ -54,38 +69,14 @@
         </ul>
     </div>
 
-
-
-
-
-    <!-- <p>Aceasta e pagina unui restaurant.</p>
-    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-        aria-expanded="false" aria-controls="navbar"></button>
-    <p> Adresa: <span th:text="${restaurantAddress}">Restaurant address</span></p>
-    <p> Numar de locuri: <span th:text="${restaurantSeats}">Restaurant seats</span></p>
-    <p> Apartine de franciza: <span th:text="${franchiseName}">Franchise name</span></p>
-    <p> Tip: <span th:text="${franchiseType}">Franchise type</span></p> -->
-
-
-    <!--<form method="post" action="#" th:object="${ratingGrade}" th:action="@{/addRating}">-->
-    <!--<select>-->
-    <!--<option th:each="i : ${#numbers.sequence(1, 10)}" th:value="${i}" th:text="${i}">-->
-    <!--</option>-->
-    <!--</select>-->
-    <!--<button type="submit">Add</button>-->
-    <!--</form>-->
-
-
-    <!--<select th:field="*{reservation}">-->
-    <!--<option th:each="i : ${#numbers.sequence(1, 10)}" th:value="${i}" th:text="${i}">-->
-    <!--</option>-->
-    <!--</select>-->
-
     <br>
 
     <h1>Meniu</h1>
     <ul th:each="menu : ${menuList}">
-        <li> <span th:text="${menu.foodName}">Food name</span> - <span th:text="${menu.price}">Price</span> lei</li>
+        <li id = "menu_item"> <span th:text="${menu.foodName}">Food name</span> - <span th:text="${menu.price}">Price</span> lei</li>
+    </ul>
+
+
 </body>
 
 </html>
