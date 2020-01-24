@@ -12,15 +12,15 @@ public class RestaurantApplication {
 
 	static final public String[] sqlCommands = new String[]
 	{
-			"DROP TABLE IF EXISTS franchise",
-			"DROP TABLE IF EXISTS restaurant",
-			"DROP TABLE IF EXISTS menu",
-			"DROP TABLE IF EXISTS rating",
-			"DROP TABLE IF EXISTS user_roles",
-			"DROP TABLE IF EXISTS users",
+			//"DROP TABLE IF EXISTS franchise",
+			//"DROP TABLE IF EXISTS restaurant",
+			//"DROP TABLE IF EXISTS menu",
+			//"DROP TABLE IF EXISTS rating",
+			//"DROP TABLE IF EXISTS user_roles",
+			//"DROP TABLE IF EXISTS users",
 
 
-			"CREATE TABLE IF NOT EXISTS FRANCHISE (ID INT PRIMARY KEY NOT NULL, " +
+			/*"CREATE TABLE IF NOT EXISTS FRANCHISE (ID INT PRIMARY KEY NOT NULL, " +
 				"NAME TEXT NOT NULL, TYPE TEXT NOT NULL, GRADE FLOAT(2) NOT NULL);",
 			"CREATE TABLE IF NOT EXISTS RESTAURANT (ID INT PRIMARY KEY NOT NULL, " +
 					"BRAND_ID INT NOT NULL, NAME TEXT NOT NULL, ADDRESS TEXT NOT NULL," +
@@ -46,7 +46,8 @@ public class RestaurantApplication {
 					" VALUES (1, 1, 'Sandwich', 15), (1, 2, 'Salad', 10), (2, 1, 'Shawarma', 17), (3, 1, 'Pizza', 23), (2, 2, 'Cake', 5);",
 			"INSERT INTO rating (id_restaurant, id_user, grade)" +
 					" VALUES (1, 1, 9), (1, 2, 8)",
-			"INSERT INTO users(username,password,enabled)" +
+
+            /*"INSERT INTO users(username,password,enabled)" +
 					" VALUES ('ana','{noop}ana', true);",
 			"INSERT INTO users(username,password,enabled) " +
 					"VALUES ('gabi','{noop}gabi', true);",
@@ -58,6 +59,7 @@ public class RestaurantApplication {
 					"VALUES ('gabi', 'ROLE_ADMIN');",
 			"INSERT INTO user_roles (username, role)" +
 					" VALUES ('enduser', 'ROLE_USER');"
+					*/
 	};
 
 	public static void main(String[] args) throws SQLException {

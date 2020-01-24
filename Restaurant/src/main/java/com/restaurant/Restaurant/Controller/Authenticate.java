@@ -9,6 +9,7 @@ public class Authenticate {
     public String user(){
         return "user";
     }
+
     @RequestMapping(value="/admin")
     public String admin(){
         return "admin";
@@ -23,4 +24,10 @@ public class Authenticate {
     public String Error403(){
         return "403";
     }
+
+    @RequestMapping(value = "/register")
+    public String register(){
+        return "register";
+    }
+
 }
