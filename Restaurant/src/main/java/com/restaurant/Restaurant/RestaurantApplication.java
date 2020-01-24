@@ -12,12 +12,12 @@ public class RestaurantApplication {
 
 	static final public String[] sqlCommands = new String[]
 	{
-			//"DROP TABLE IF EXISTS franchise",
-			//"DROP TABLE IF EXISTS restaurant",
-			//"DROP TABLE IF EXISTS menu",
-			//"DROP TABLE IF EXISTS rating",
-			//"DROP TABLE IF EXISTS user_roles",
-			//"DROP TABLE IF EXISTS users",
+			"DROP TABLE IF EXISTS franchise",
+			"DROP TABLE IF EXISTS restaurant",
+			"DROP TABLE IF EXISTS menu",
+			"DROP TABLE IF EXISTS rating",
+			"DROP TABLE IF EXISTS user_roles",
+			"DROP TABLE IF EXISTS users",
 
 
 			/*"CREATE TABLE IF NOT EXISTS FRANCHISE (ID INT PRIMARY KEY NOT NULL, " +
