@@ -42,6 +42,8 @@ public class RestaurantController {
         model.addAttribute("reservation", "How many seats?");
         model.addAttribute("rating", "How many seats?");
         model.addAttribute("averageRating", restaurantService.getRestaurantGrade(id));
+        model.addAttribute("srcImageURL", "../static/images/" + restaurantData.getImageURL());
+        model.addAttribute("thSrcImageURL", "/images/" +restaurantData.getImageURL());
 
         Calendar now = Calendar.getInstance();
 

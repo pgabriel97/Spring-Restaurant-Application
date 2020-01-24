@@ -6,7 +6,7 @@
 
     <style>
         body {
-            background-color: #F2FDFF
+            background-color: #F2FDFF;
         }
 
         #title_div {
@@ -41,6 +41,9 @@
         <p>Apartine de franciza <b><span th:text="${franchiseName}">Franchise name</span></b></p>
     </div>
 
+
+    <p th:text="${imageURL}"> </p>
+    <img src="${srcImageURL}" width="1000" th:src="${thSrcImageURL}"/>
     <h3>Informații generale</h3>
     <div id="info_div">
         <ul>

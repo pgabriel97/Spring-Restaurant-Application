@@ -7,14 +7,16 @@ public class Restaurant {
     private final String address;
     private final int seatCount;
     private final int menuId;
+    private final String imageURL;
 
-    public Restaurant(int id, int brandId, String name, String address, int seatCount, int menuId) {
+    public Restaurant(int id, int brandId, String name, String address, int seatCount, int menuId, String imageURL) {
         this.id = id;
         this.brandId = brandId;
         this.name = name;
         this.address = address;
         this.seatCount = seatCount;
         this.menuId = menuId;
+        this.imageURL = imageURL;
     }
 
     public int getId() {
@@ -39,5 +41,9 @@ public class Restaurant {
 
     public int getMenuId() {
         return menuId;
+    }
+
+    public String getImageURL() {
+        return imageURL;
     }
 }
