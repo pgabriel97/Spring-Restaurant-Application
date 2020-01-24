@@ -18,3 +18,5 @@ INSERT INTO menu (id, order_no, food_name, price)
             VALUES (1, 1, 'Sandwich', 15), (1, 2, 'Salad', 10), (2, 1, 'Shawarma', 17), (3, 1, 'Pizza', 23), (2, 2, 'Cake', 5);
 
 INSERT INTO rating (id_restaurant, id_user, grade) VALUES (1, 1, 9), (1, 2, 8)",
+
+INSERT INTO COMMENT (ID_RESTAURANT, ID_USER, COMMENT_TEXT) VALUES (1, 1, 'Misto!'), (1, 2, 'Imi place restaurantul vostru!')",

@@ -56,6 +56,39 @@
         <p>Apartine de franciza <b><span th:text="${franchiseName}">Franchise name</span></b></p>
     </div>
     <img id="image" src="${srcImageURL}" th:src="${thSrcImageURL}" />
+
+
+    <!--<form method="post" action="/submit" th:object="${b}">-->
+    <!--<select>-->
+    <!--<option>Select</option>-->
+    <!--<option th:each="n : ${#numbers.sequence(1,53)}" th:value="${n}" th:text="${n}"/>-->
+    <!--<input type="submit" id="doUpdate" name="_eventId_updateData" value="Update now!" />-->
+    <!--</select>-->
+    <!--</form>-->
+    <!--<form action="#" th:action="@{/submit}" th:object="${rating}" method="post">-->
+        <!--<select>-->
+            <!--<option>Select</option>-->
+            <!--<option th:each="n : ${#numbers.sequence(1,53)}" th:value="${n}" th:text="${n}" th:field="*{grade}"></option>-->
+            <!--<input type="submit" value="Submit" /> <input type="reset" value="Reset" />-->
+        <!--</select>-->
+
+        <!--&lt;!&ndash;<p>Id: <input type="text" th:field="*{id}" /></p>&ndash;&gt;-->
+        <!--&lt;!&ndash;<p>Message: <input type="text" th:field="*{seatCount}" /></p>&ndash;&gt;-->
+        <!--&lt;!&ndash;<p>Id: <input type="text" th:field="*{brandId}" /></p>&ndash;&gt;-->
+        <!--&lt;!&ndash;<p>Message: <input type="text" th:field="*{menuId}" /></p>&ndash;&gt;-->
+        <!--&lt;!&ndash;<p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>&ndash;&gt;-->
+    <!--</form>-->
+
+
+    // BUN ASTA CA MODEL
+    <form action="#" th:action="@{/restaurant/submitRank}" th:object="${rating}" method="post">
+        <p>Id: <input type="text" th:field="*{grade}" /></p>
+        <!--<input type="hidden" th:field="${restaurantID}"/>-->
+        <!--<input type="hidden" th:field="${userID}"/>-->
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    </form>
+
+
     <p th:text="${imageURL}"> </p>
     <h3>Informații generale</h3>
     <div id="info_div">
@@ -72,6 +105,11 @@
     <h1>Meniu</h1>
     <ul th:each="menu : ${menuList}">
         <li id = "menu_item"> <span th:text="${menu.foodName}">Food name</span> - <span th:text="${menu.price}">Price</span> lei</li>
+    </ul>
+
+    <h1>Comentarii</h1>
+    <ul th:each="comment : ${commentList}">
+        <li> <span th:text="${comment.comment}">Food name</span> - <span th:text="${comment.userID}">Price</span></li>
     </ul>
 
 

@@ -1,11 +1,14 @@
 package com.restaurant.Restaurant.Service;
 
+import com.restaurant.Restaurant.Model.Comment;
 import com.restaurant.Restaurant.Model.Franchise;
 import com.restaurant.Restaurant.Model.Restaurant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class RestaurantService {
@@ -40,6 +43,24 @@ public class RestaurantService {
 
         // Returning the average rating to be displayed on browser
         return rs.getFloat("gr");
+    }
+
+    public List<Comment> getRestaurantComments(int id) throws SQLException {
+        Connection c = DriverManager
+                .getConnection("jdbc:postgresql://localhost:5432/restaurant",
+                        "postgres", "12345");
+
+        PreparedStatement pst = c.prepareStatement("SELECT * from comment where id_restaurant = " + id);
+        ResultSet rs = pst.executeQuery();
+
+        List<Comment> commentList = new ArrayList<>();
+
+        while (rs.next()) {
+            Comment comment = new Comment(rs.getInt(1), rs.getInt(2), rs.getString(3));
+            commentList.add(comment);
+        }
+
+        return commentList;
     }
 
 

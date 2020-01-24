@@ -1,9 +1,6 @@
 package com.restaurant.Restaurant.Controller;
 
-import com.restaurant.Restaurant.Model.Franchise;
-import com.restaurant.Restaurant.Model.Menu;
-import com.restaurant.Restaurant.Model.Restaurant;
-import com.restaurant.Restaurant.Model.User;
+import com.restaurant.Restaurant.Model.*;
 import com.restaurant.Restaurant.Service.MenuService;
 import com.restaurant.Restaurant.Service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +8,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -48,42 +45,36 @@ public class RestaurantController {
         model.addAttribute("srcImageURL", "../static/images/" + restaurantData.getImageURL());
         model.addAttribute("thSrcImageURL", "/images/" +restaurantData.getImageURL());
 
+        model.addAttribute("userID", "1");
+
+        Rating rating = new Rating(id, 1);
+        model.addAttribute("rating", rating);
+
         Calendar now = Calendar.getInstance();
 
         List<Menu> menuList = menuService.getMenuById(restaurantData.getMenuId());
-
         model.addAttribute("menuList", menuList);
 
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        String name = auth.getName();
-//
-//        System.out.println(name);
+        List<Comment> commentList = restaurantService.getRestaurantComments(restaurantData.getMenuId());
+        model.addAttribute("commentList", commentList);
 
         return "restaurant";
     }
 
-    @PostMapping("/addRating")
-    public String rateRestaurant(Integer ratingGrade) throws SQLException {
+    @PostMapping("/restaurant/submitRank")
+    public String greetingSubmit(@ModelAttribute Rating rating) throws SQLException {
+//        rating.setRestaurantID(restaurantID);
+//        rating.setUserID(userID);
+        System.out.println(rating.getGrade() + " " + rating.getRestaurantID() + " " + rating.getUserID());
 
-        System.out.println("Sending new restaurant grade...");
+        Connection c = DriverManager
+                .getConnection("jdbc:postgresql://localhost:5432/restaurant",
+                        "postgres", "12345");
 
-//        Restaurant restaurantData = restaurantService.getRestaurantById(id);
-//        Franchise franchiseData = restaurantService.getFranchiseByRestaurantId(id);
-//
-//        model.addAttribute("restaurantId", id);
-//        model.addAttribute("restaurantAddress", restaurantData.getAdress());
-//        model.addAttribute("restaurantSeats", restaurantData.getSeatCount());
-//        model.addAttribute("franchiseName", franchiseData.getName());
-//        model.addAttribute("franchiseType", franchiseData.getType());
-//        model.addAttribute("reservation", "How many seats?");
-//        model.addAttribute("rating", "How many seats?");
-//
-//        Calendar now = Calendar.getInstance();
-//
-//        List<Menu> menuList = menuService.getMenuById(restaurantData.getMenuId());
-//
-//        model.addAttribute("menuList", menuList);
+        Statement st = c.createStatement();
+        st.executeUpdate("INSERT INTO rating (id_restaurant, id_user, grade) values (1, 1, 1)");
+        c.close();
 
-        return "restaurant";
+        return "redirect:/restaurant/" + 1;
     }
 }
