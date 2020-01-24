@@ -3,9 +3,12 @@ package com.restaurant.Restaurant.Controller;
 import com.restaurant.Restaurant.Model.Franchise;
 import com.restaurant.Restaurant.Model.Menu;
 import com.restaurant.Restaurant.Model.Restaurant;
+import com.restaurant.Restaurant.Model.User;
 import com.restaurant.Restaurant.Service.MenuService;
 import com.restaurant.Restaurant.Service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,6 +53,11 @@ public class RestaurantController {
         List<Menu> menuList = menuService.getMenuById(restaurantData.getMenuId());
 
         model.addAttribute("menuList", menuList);
+
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        String name = auth.getName();
+//
+//        System.out.println(name);
 
         return "restaurant";
     }
