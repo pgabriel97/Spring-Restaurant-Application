@@ -2,6 +2,7 @@ package com.restaurant.Restaurant.Model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.security.Principal;
 
 @Entity
 @Table(name = "user")
@@ -44,4 +45,5 @@ public class User implements Serializable{
     public Boolean getEnabled() {
         return enabled;
     }
+
 }

@@ -17,6 +17,7 @@ public class UserController {
     public List<User> getUser() {
         return userService.findAll();
     }
+
     @PostMapping(value = "/register")
     public String createUser(User user) {
         userService.insertUser(user);
@@ -26,10 +27,12 @@ public class UserController {
     public void updateUser(@RequestBody User user) {
         userService.updateUser(user);
     }
+
     @PutMapping(value = "/executeUpdateUser")
     public void executeUpdatUser(@RequestBody User user) {
         userService.executeUpdateUser(user);
     }
+
     @DeleteMapping(value = "/deleteEmpById")
     public void deleteUser(@RequestBody User user) {
         userService.deleteUser(user);

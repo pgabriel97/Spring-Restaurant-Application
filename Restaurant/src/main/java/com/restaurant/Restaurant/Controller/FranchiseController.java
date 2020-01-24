@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.sql.*;
 import java.util.List;
 
@@ -16,11 +17,6 @@ public class FranchiseController {
     @Autowired
     private FranchiseService franchiseService;
 
-    @GetMapping("/")
-    public String homePage()
-    {
-        return "home";
-    }
 
 //    @GetMapping("/restaurants")
 //    public List<Restaurant> allRestaurantsPage() {

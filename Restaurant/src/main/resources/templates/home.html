@@ -31,6 +31,7 @@
                     <li class="active"><a href="#">Home</a></li>
                     <li><a th:href="@{/restaurant}">Restaurants</a></li>
                     <li><a th:href="@{/franchise}">Franchise</a></li>
+                    <!--
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                            aria-expanded="false">Dropdown <span class="caret"></span></a>
@@ -44,17 +45,34 @@
                             <li><a href="#">One more separated link</a></li>
                         </ul>
                     </li>
+                    -->
+                </ul>
+                <ul class="nav navbar-nav navbar-right" th:if="${#authorization.expression('isAuthenticated()')}" >
+                    <li>Welcome, <span th:text="${#authentication.getPrincipal().getUsername()}"></span></li>
+                    <li>&nbsp&nbsp&nbsp&nbsp&nbsp</li>
+                    <li>
+                        <form th:action="@{/logout}" method="post">
+                            <input type="submit" value="Sign Out" />
+                        </form>
+                    </li>
                 </ul>
             </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
     </nav>
     <!-- Main component for a primary marketing message or call to action -->
-    <div class="jumbotron">
+
+    <div class="jumbotron col-sm-8">
         <!--Usage of models we wrote in WepAppController th:text="'Welcome to basic Bootstrap with Spring Boot created by ' + ${username} -->
         <h3 th:text="'Welcome to our app!'"></h3>
         <p th:text="'Would you like to make a reservation today? '"></p>
         <p> Pick a restaurant and add a reservation. </p>
+
     </div>
+        <div class="col-sm-4">
+            <img src="https://www.hotelierindia.com/public/styles/full_img/public/images/2019/08/16/shutterstock_1278665539_3.jpg?itok=ryHC3Aao" width="99%">
+        </div>
+    </div>
+    
 </div> <!-- /container -->
 <!-- Bootstrap core JavaScript
 ================================================== -->
