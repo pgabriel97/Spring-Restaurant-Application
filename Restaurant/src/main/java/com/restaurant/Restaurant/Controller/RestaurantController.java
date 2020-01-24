@@ -34,7 +34,8 @@ public class RestaurantController {
         Franchise franchiseData = restaurantService.getFranchiseByRestaurantId(id);
 
         model.addAttribute("restaurantId", id);
-        model.addAttribute("restaurantAddress", restaurantData.getAdress());
+        model.addAttribute("restaurantName", restaurantData.getName());
+        model.addAttribute("restaurantAddress", restaurantData.getAddress());
         model.addAttribute("restaurantSeats", restaurantData.getSeatCount());
         model.addAttribute("franchiseName", franchiseData.getName());
         model.addAttribute("franchiseType", franchiseData.getType());

@@ -21,8 +21,8 @@ public class RestaurantService {
         rs.next();
 
         Restaurant restaurant = new Restaurant(rs.getInt(1),
-                    rs.getInt(2), rs.getString(3),
-                    rs.getInt(4), rs.getInt(5));
+                    rs.getInt(2), rs.getString(3), rs.getString(4),
+                    rs.getInt(5), rs.getInt(6));
 
         return restaurant;
     }

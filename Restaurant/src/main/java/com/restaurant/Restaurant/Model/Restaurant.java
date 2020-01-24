@@ -3,14 +3,16 @@ package com.restaurant.Restaurant.Model;
 public class Restaurant {
     private final int id;
     private final int brandId;
-    private final String adress;
+    private final String name;
+    private final String address;
     private final int seatCount;
     private final int menuId;
 
-    public Restaurant(int id, int brandId, String adress, int seatCount, int menuId) {
+    public Restaurant(int id, int brandId, String name, String address, int seatCount, int menuId) {
         this.id = id;
         this.brandId = brandId;
-        this.adress = adress;
+        this.name = name;
+        this.address = address;
         this.seatCount = seatCount;
         this.menuId = menuId;
     }
@@ -23,8 +25,12 @@ public class Restaurant {
         return brandId;
     }
 
-    public String getAdress() {
-        return adress;
+    public String getName() {
+        return name;
+    }
+
+    public String getAddress() {
+        return address;
     }
 
     public int getSeatCount() {

@@ -1,38 +1,88 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="UTF-8">
-    <title>Franchise</title>
+    <title th:text="${restaurantName}">Nume restaurant</title>
+
+    <style>
+        body {
+            background-color: #F2FDFF
+        }
+
+        #title_div {
+            background-color: #1D314C;
+            border-radius: 5px;
+        }
+
+        #restaurant_name {
+            color: #9AD4D6;
+            margin-left: 10px;
+        }
+
+        #belongs_to_franchise {
+            margin-top: -20px;
+            font-size: 25px;
+        }
+
+        #info_div {
+        border: solid 4px #1D314C;
+            border-radius: 5px;
+        }
+    </style>
+
 </head>
+
 <body>
-<h1>Restaurant</h1>
-<p>Aceasta e pagina unui restaurant.</p>
-<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+    <div id="title_div">
+        <h1 id="restaurant_name"><span th:text="${restaurantName}">Nume restaurant</span> &emsp;(<span
+                th:text="${averageRating}">Rating</span> / 10)</h1>
+    </div>
+    <div id="belongs_to_franchise">
+        <p>Apartine de franciza <b><span th:text="${franchiseName}">Franchise name</span></b></p>
+    </div>
+
+    <h3>Informații generale</h3>
+    <div id="info_div">
+        <ul>
+            <li>Tip de mâncare: <span th:text="${franchiseType}">Franchise type</span></li>
+            <li>Adresa: <span th:text="${restaurantAddress}">Restaurant address</span></li>
+            <li>Numar de telefon: {0000}</li>
+            <li>Email: {restaurant@mail.com}</li>
+        </ul>
+    </div>
+
+
+
+
+
+    <!-- <p>Aceasta e pagina unui restaurant.</p>
+    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
         aria-expanded="false" aria-controls="navbar"></button>
-<p> Adresa: <span th:text="${restaurantAddress}">Restaurant address</span></p>
-<p> Numar de locuri: <span th:text="${restaurantSeats}">Restaurant seats</span></p>
-<p> Apartine de franciza: <span th:text="${franchiseName}">Franchise name</span></p>
-<p> Tip: <span th:text="${franchiseType}">Franchise type</span></p>
-<p> Nota medie: <span th:text="${averageRating}">Rating</span></p>
+    <p> Adresa: <span th:text="${restaurantAddress}">Restaurant address</span></p>
+    <p> Numar de locuri: <span th:text="${restaurantSeats}">Restaurant seats</span></p>
+    <p> Apartine de franciza: <span th:text="${franchiseName}">Franchise name</span></p>
+    <p> Tip: <span th:text="${franchiseType}">Franchise type</span></p> -->
 
 
-<!--<form method="post" action="#" th:object="${ratingGrade}" th:action="@{/addRating}">-->
+    <!--<form method="post" action="#" th:object="${ratingGrade}" th:action="@{/addRating}">-->
     <!--<select>-->
-        <!--<option th:each="i : ${#numbers.sequence(1, 10)}" th:value="${i}" th:text="${i}">-->
-        <!--</option>-->
-    <!--</select>-->
-    <!--<button type="submit">Add</button>-->
-<!--</form>-->
-
-
-<!--<select th:field="*{reservation}">-->
     <!--<option th:each="i : ${#numbers.sequence(1, 10)}" th:value="${i}" th:text="${i}">-->
     <!--</option>-->
-<!--</select>-->
+    <!--</select>-->
+    <!--<button type="submit">Add</button>-->
+    <!--</form>-->
 
-<br>
 
-<h1>Meniu</h1>
-<ul th:each="menu : ${menuList}">
-    <li> <span th:text="${menu.foodName}">Food name</span> - <span th:text="${menu.price}">Price</span> lei</li>
+    <!--<select th:field="*{reservation}">-->
+    <!--<option th:each="i : ${#numbers.sequence(1, 10)}" th:value="${i}" th:text="${i}">-->
+    <!--</option>-->
+    <!--</select>-->
+
+    <br>
+
+    <h1>Meniu</h1>
+    <ul th:each="menu : ${menuList}">
+        <li> <span th:text="${menu.foodName}">Food name</span> - <span th:text="${menu.price}">Price</span> lei</li>
 </body>
+
 </html>
