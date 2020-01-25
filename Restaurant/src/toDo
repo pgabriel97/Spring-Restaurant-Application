@@ -2,8 +2,8 @@
 - crud rezervare - m-am apucat de el
 - cautare si filtre pe restaurant
 - tratare erori si succese
-- comentarii
-- rating
+- comentarii ---> adaugat comentarii (mai trebuie RUD)
+- rating --> adaugat rating (mai trebuie schimbarea lui si, eventual, anularea + calcularea noii note)
 - update pe user (nu e asa important)
 - uniformizare front end
 - pagina francize

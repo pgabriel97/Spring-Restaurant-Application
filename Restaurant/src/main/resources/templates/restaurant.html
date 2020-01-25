@@ -81,11 +81,14 @@
     <!--</form>-->
 
 
-    // BUN ASTA CA MODEL
     <form action="#" th:action="@{/restaurant/submitRank}" th:object="${rating}" method="post">
-        <p>Id: <input type="text" th:field="*{grade}" /></p>
-        <!--<input type="hidden" th:field="${restaurantID}"/>-->
-        <!--<input type="hidden" th:field="${userID}"/>-->
+        <select>
+        <option>Select</option>
+        <option th:each="n : ${#numbers.sequence(1 ,10)}" th:value="${n}" th:text="${n}" th:field="*{grade}"></option>
+            <input type="hidden" th:field="*{restaurantID}" name="restaurantId"/>
+            <input type="hidden" th:field="*{userID}" name="userID"/>
+        <input type="submit" value="Submit" /> <input type="reset" value="Reset" />
+        </select>
         <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
 
@@ -108,9 +111,26 @@
         <li id = "menu_item"> <span th:text="${menu.foodName}">Food name</span> - <span th:text="${menu.price}">Price</span> lei</li>
     </ul>
 
-    <h1>Comentarii</h1>
+    <h1>Scrie o recenzie:</h1>
+    <form action="#" th:action="@{/restaurant/submitComment}" th:object="${emptyComment}" method="post">
+        <textarea name="news_content" rows="10" cols="50" th:field="*{comment}"></textarea>
+        <input type="hidden" th:field="*{restaurantID}" name="restaurantId"/>
+        <input type="hidden" th:field="*{userID}" name="userID"/>
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    </form>
+
+    <h1>Recenzii pentru <span th:text="${restaurantName}">Nume restaurant</span></h1>
     <ul th:each="comment : ${commentList}">
-        <li> <span th:text="${comment.comment}">Food name</span> - <span th:text="${comment.userID}">Price</span></li>
+        <li> Scris de <span th:text="${comment.userID}">User</span>
+            <a th:href="${'/restaurant/deleteComment/' + {comment.restaurantID} + '/' + {comment.commentID}}">Delete</a></li>
+            <!--<form action="#" th:action="@{/restaurant/deleteComment}" th:object="${comment}" method="post">-->
+                <!--&lt;!&ndash;<input type="hidden" th:field="*{commentID}" name="commentID" />&ndash;&gt;-->
+                <!--<input type="submit" value="Sterge" />-->
+            <!--</form>-->
+        <!--</li>-->
+        <li> <span th:text="${comment.comment}">Comment text</span></li>
+        <!--<li> <span th:text="${commentStat.index}">Comment text</span></li>-->
+
     </ul>
 
 
