@@ -6,6 +6,7 @@ import com.restaurant.Restaurant.Service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -48,8 +49,10 @@ public class RestaurantController {
 
         model.addAttribute("userID", "1");
 
+        UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
         // SENDING RATING OBJECT
-        Rating rating = new Rating(id, 1);
+        Rating rating = new Rating(id, userDetails.getUsername());
         model.addAttribute("rating", rating);
 
         // SENDING COMMENT LIST FOR DISPLAY
@@ -57,11 +60,13 @@ public class RestaurantController {
         model.addAttribute("commentList", commentList);
 
         // CREATING EMPTY COMMENT TO BE PROCESSED AND SENT
-        model.addAttribute("emptyComment", new Comment(id, 1, ""));
+        model.addAttribute("emptyComment", new Comment(id, userDetails.getUsername(), ""));
 
         // SENDING MENU LIST FOR DISPLAY
         List<Menu> menuList = menuService.getMenuById(restaurantData.getMenuId());
         model.addAttribute("menuList", menuList);
+
+        model.addAttribute("currentUser", userDetails.getUsername());
 
         return "restaurant";
     }

@@ -58,29 +58,6 @@
     </div>
     <img id="image" src="${srcImageURL}" th:src="${thSrcImageURL}" />
 
-
-    <!--<form method="post" action="/submit" th:object="${b}">-->
-    <!--<select>-->
-    <!--<option>Select</option>-->
-    <!--<option th:each="n : ${#numbers.sequence(1,53)}" th:value="${n}" th:text="${n}"/>-->
-    <!--<input type="submit" id="doUpdate" name="_eventId_updateData" value="Update now!" />-->
-    <!--</select>-->
-    <!--</form>-->
-    <!--<form action="#" th:action="@{/submit}" th:object="${rating}" method="post">-->
-        <!--<select>-->
-            <!--<option>Select</option>-->
-            <!--<option th:each="n : ${#numbers.sequence(1,53)}" th:value="${n}" th:text="${n}" th:field="*{grade}"></option>-->
-            <!--<input type="submit" value="Submit" /> <input type="reset" value="Reset" />-->
-        <!--</select>-->
-
-        <!--&lt;!&ndash;<p>Id: <input type="text" th:field="*{id}" /></p>&ndash;&gt;-->
-        <!--&lt;!&ndash;<p>Message: <input type="text" th:field="*{seatCount}" /></p>&ndash;&gt;-->
-        <!--&lt;!&ndash;<p>Id: <input type="text" th:field="*{brandId}" /></p>&ndash;&gt;-->
-        <!--&lt;!&ndash;<p>Message: <input type="text" th:field="*{menuId}" /></p>&ndash;&gt;-->
-        <!--&lt;!&ndash;<p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>&ndash;&gt;-->
-    <!--</form>-->
-
-
     <form action="#" th:action="@{/restaurant/submitRank}" th:object="${rating}" method="post">
         <select>
         <option>Select</option>
@@ -122,14 +99,9 @@
     <h1>Recenzii pentru <span th:text="${restaurantName}">Nume restaurant</span></h1>
     <ul th:each="comment : ${commentList}">
         <li> Scris de <span th:text="${comment.userID}">User</span>
-            <a th:href="${'/restaurant/deleteComment/' + {comment.restaurantID} + '/' + {comment.commentID}}">Delete</a></li>
-            <!--<form action="#" th:action="@{/restaurant/deleteComment}" th:object="${comment}" method="post">-->
-                <!--&lt;!&ndash;<input type="hidden" th:field="*{commentID}" name="commentID" />&ndash;&gt;-->
-                <!--<input type="submit" value="Sterge" />-->
-            <!--</form>-->
-        <!--</li>-->
+            <a th:if="${comment.userID == currentUser}" th:href="${'/restaurant/deleteComment/' + {comment.restaurantID} + '/' + {comment.commentID}}">Delete</a>
+        </li>
         <li> <span th:text="${comment.comment}">Comment text</span></li>
-        <!--<li> <span th:text="${commentStat.index}">Comment text</span></li>-->
 
     </ul>
 

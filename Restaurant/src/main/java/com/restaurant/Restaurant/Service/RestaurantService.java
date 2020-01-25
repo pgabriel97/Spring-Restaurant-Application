@@ -56,7 +56,7 @@ public class RestaurantService {
         List<Comment> commentList = new ArrayList<>();
 
         while (rs.next()) {
-            Comment comment = new Comment(rs.getString(1), rs.getInt(2), rs.getInt(3), rs.getString(4));
+            Comment comment = new Comment(rs.getString(1), rs.getInt(2), rs.getString(3), rs.getString(4));
             commentList.add(comment);
         }
 

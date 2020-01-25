@@ -1,31 +1,28 @@
 package com.restaurant.Restaurant.Model;
 
-
-import javax.persistence.*;
-
 public class Comment {
 
     private String commentID;
 
     private int restaurantID;
 
-    private int userID;
+    private String userID;
 
     private String comment;
 
     public Comment() {
         this.restaurantID = 0;
-        this.userID = 0;
+        this.userID = "";
         this.comment = "";
     }
 
-    public Comment(int restaurantID, int userID, String comment) {
+    public Comment(int restaurantID, String userID, String comment) {
         this.restaurantID = restaurantID;
         this.userID = userID;
         this.comment = comment;
     }
 
-    public Comment(String commentID, int restaurantID, int userID, String comment) {
+    public Comment(String commentID, int restaurantID, String userID, String comment) {
         this.commentID = commentID;
         this.restaurantID = restaurantID;
         this.userID = userID;
@@ -48,11 +45,11 @@ public class Comment {
         this.restaurantID = restaurantID;
     }
 
-    public int getUserID() {
+    public String getUserID() {
         return userID;
     }
 
-    public void setUserID(int userID) {
+    public void setUserID(String userID) {
         this.userID = userID;
     }
 

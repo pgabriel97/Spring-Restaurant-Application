@@ -1,6 +1,7 @@
 package com.restaurant.Restaurant.Service;
 
 import com.restaurant.Restaurant.Model.Franchise;
+import com.restaurant.Restaurant.Model.Restaurant;
 import org.springframework.stereotype.Service;
 
 import java.sql.*;
@@ -57,5 +58,25 @@ public class FranchiseService {
         System.out.println(rs.getFloat("gr"));
 
         return rs.getFloat("gr");
+    }
+
+    public List<Restaurant> getRestaurantsByFranchiseId(int id) throws SQLException {
+        Connection c = DriverManager
+                .getConnection("jdbc:postgresql://localhost:5432/restaurant",
+                        "postgres", "12345");
+
+        PreparedStatement pst = c.prepareStatement("SELECT * from restaurant where brand_id = " + id + " ORDER BY grade");
+        ResultSet rs = pst.executeQuery();
+
+        List<Restaurant> restaurantList = new ArrayList<>();
+
+        while (rs.next()) {
+            Restaurant restaurant = new Restaurant(rs.getInt(1),
+                    rs.getInt(2), rs.getString(3), rs.getString(4),
+                    rs.getInt(5), rs.getInt(6), rs.getString(8));
+            restaurantList.add(restaurant);
+        }
+
+        return restaurantList;
     }
 }

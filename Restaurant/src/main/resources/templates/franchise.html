@@ -1,16 +1,79 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="UTF-8">
-    <title>Franchise</title>
+    <title th:text="${restaurantName}">Nume restaurant</title>
+
+    <style>
+        body {
+            background-color: #F9F9F9;
+        }
+
+        #title_div {
+            background-color: #1D314C;
+            border-radius: 5px;
+        }
+
+        #franchise_name {
+            color: #9AD4D6;
+            margin-left: 10px;
+        }
+
+        #food_type {
+            margin-top: -20px;
+            font-size: 25px;
+        }
+
+        #info_div {
+            border: solid 4px #1D314C;
+            border-radius: 5px;
+            width: 65%;
+            font-size:20px
+        }
+
+        #image {
+        border: solid 4px #1D314C;
+        position: relative;
+        height: 100px;
+        float: right;
+        margin-right: 40px;
+        margin-top: -10px;
+        }
+
+        .restaurant_item {
+        font-size: 20px;
+        }
+
+        #lista_restaurante {
+        border: solid 4px #1D314C;
+        border-radius: 5px;
+        }
+
+    </style>
+
 </head>
+
 <body>
-<h1>Franciza</h1>
-<p>Aceasta e pagina unei francize.</p>
-<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-        aria-expanded="false" aria-controls="navbar"></button>
-<p th:text="${franchiseName}">Frachise name</p>
-<p th:text="${franchiseType}">Franchise type</p>
+<div id="title_div">
+    <h1 id="franchise_name"><span th:text="${franchiseName}">Nume franciza</span> &emsp;(<span
+            th:text="${franchiseGrade}">Rating</span> / 10)</h1>
+</div>
+<div id="food_type">
+    <p>Tip de restaurant: <b><span th:text="${franchiseType}">Tipul francizei</span></b></p>
+</div>
+
 <p th:text="${franchiseGrade}">Franchise type</p>
+
+<h1>Restaurante din franciza</h1>
+<div id="lista_restaurante">
+<ul th:each="restaurant : ${restaurantList}">
+    <li class="restaurant_item"> <img id="image" src="${'../static/images/' + {restaurant.imageURL}}" th:src="${'/images/' + {restaurant.imageURL}}" />
+        <span th:text="${restaurant.name}">Food name</span></li>
+    <li class="restaurant_item"> <span th:text="${restaurant.address}">Food name</span></li>
+    <li class="restaurant_item"> {numar_telefon}</li>
+    <li class="restaurant_item"> {email}</li>
+</ul>
+</div>
 
 </body>
 </html>

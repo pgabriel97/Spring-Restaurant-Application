@@ -1,8 +1,14 @@
 package com.restaurant.Restaurant.Controller;
 
+import com.restaurant.Restaurant.Model.Comment;
 import com.restaurant.Restaurant.Model.Franchise;
+import com.restaurant.Restaurant.Model.Restaurant;
+import com.restaurant.Restaurant.Model.User;
 import com.restaurant.Restaurant.Service.FranchiseService;
+import com.restaurant.Restaurant.Service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,12 +22,8 @@ public class FranchiseController {
 
     @Autowired
     private FranchiseService franchiseService;
+    private RestaurantService restaurantService;
 
-
-//    @GetMapping("/restaurants")
-//    public List<Restaurant> allRestaurantsPage() {
-//        return restaurantService.getAllRestaurants();
-//    }
 
     @GetMapping("/franchise/{id}")
     public String loadFranchisePage(Model model, @PathVariable int id) throws SQLException {
@@ -30,6 +32,10 @@ public class FranchiseController {
         model.addAttribute("franchiseName", franchiseData.getName());
         model.addAttribute("franchiseType", franchiseData.getType());
         model.addAttribute("franchiseGrade", franchiseService.getFranchiseGrade(id));
+
+        List<Restaurant> restaurantList = franchiseService.getRestaurantsByFranchiseId(franchiseData.getId());
+        model.addAttribute("restaurantList", restaurantList);
+
         return "franchise";
     }
 
