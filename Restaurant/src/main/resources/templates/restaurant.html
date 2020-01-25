@@ -58,17 +58,28 @@
     </div>
     <img id="image" src="${srcImageURL}" th:src="${thSrcImageURL}" />
 
-    <form action="#" th:action="@{/restaurant/submitRank}" th:object="${rating}" method="post">
-        <select>
-        <option>Select</option>
-        <option th:each="n : ${#numbers.sequence(1 ,10)}" th:value="${n}" th:text="${n}" th:field="*{grade}"></option>
-            <input type="hidden" th:field="*{restaurantID}" name="restaurantId"/>
-            <input type="hidden" th:field="*{userID}" name="userID"/>
-        <input type="submit" value="Submit" /> <input type="reset" value="Reset" />
-        </select>
-        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    <div th:if="${currentRating == null}"> Nu ai acordat inca o nota acestui restaurant.
+            <form action="#" th:action="@{/restaurant/submitRank}" th:object="${rating}" method="post">
+                <select>
+                    <option>---</option>
+                    <option th:each="n : ${#numbers.sequence(1 ,10)}" th:value="${n}" th:text="${n}" th:field="*{grade}"></option>
+                    <input type="hidden" th:field="*{restaurantID}" name="restaurantId"/>
+                    <input type="hidden" th:field="*{userID}" name="userID"/>
+                    <input type="submit" value="Submit" />
+                </select>
     </form>
-
+    </div>
+    <div th:if="${currentRating != null}"> Ai acordat deja nota <b><span th:text="${currentRating.grade}">Nota acordata</span></b> acestui restaurant.
+        <form action="#" th:action="@{/restaurant/updateRank}" th:object="${rating}" method="post">
+            <select>
+                <option>---</option>
+                <option th:each="n : ${#numbers.sequence(1 ,10)}" th:value="${n}" th:text="${n}" th:field="*{grade}"></option>
+                <input type="hidden" th:field="*{restaurantID}" name="restaurantId"/>
+                <input type="hidden" th:field="*{userID}" name="userID"/>
+                <input type="submit" value="Submit" />
+            </select>
+        </form>
+    </div>
 
     <p th:text="${imageURL}"> </p>
     <h3>Informații generale</h3>

@@ -2,9 +2,9 @@
 - crud rezervare - m-am apucat de el
 - cautare si filtre pe restaurant
 - tratare erori si succese
-- comentarii ---> adaugat comentarii (vedem daca mai facem si edit pe ele, poate ajunge delete)
-- rating --> adaugat rating (mai trebuie schimbarea lui si, eventual, anularea + calcularea noii note)
+**** comentarii ---> adaugat comentarii, poate face delete doar cel care le-a pus (mai vedem cu edit)
+**** rating --> fiecare isi poate schimba propria nota, i se arata daca a acordat inainte (inca nu ia valoarea din select, se rezolva)
 - update pe user (nu e asa important)
 - uniformizare front end
-- pagina francize
+**** pagina francize -> va afisa doar lista de restaurante din franciza (ca si facut)
 - restrictionare crud pe restaurant, franciza cand nnu e admin

@@ -68,6 +68,17 @@ public class RestaurantController {
 
         model.addAttribute("currentUser", userDetails.getUsername());
 
+        Rating currentRating = restaurantService.getRatingOfUserForRestaurant(id, userDetails.getUsername());
+
+        if (currentRating != null) {
+            model.addAttribute("currentRating", currentRating);
+            System.out.println("NOTA DATA AICI ESTE: " + restaurantService.getRatingOfUserForRestaurant(id, userDetails.getUsername()).getGrade());
+        }
+        else {
+            model.addAttribute("currentRating", null);
+            System.out.println("NOTA DATA AICI ESTE: null");
+        }
+
         return "restaurant";
     }
 
@@ -82,12 +93,32 @@ public class RestaurantController {
                         "postgres", "12345");
 
         Statement st = c.createStatement();
-        st.executeUpdate("INSERT INTO rating (id_restaurant, id_user, grade) values (" + rating.getRestaurantID() + ", " +
-                rating.getUserID() + ", " + rating.getGrade() + ")");
+        st.executeUpdate("INSERT INTO rating (id_restaurant, username, grade) values (" + rating.getRestaurantID() + ", '" +
+                rating.getUserID() + "', " + rating.getGrade() + ")");
         c.close();
 
         return "redirect:/restaurant/" + rating.getRestaurantID();
     }
+
+
+    @PostMapping("/restaurant/updateRank")
+    public String updateRank(@ModelAttribute Rating rating) throws SQLException {
+
+        System.out.println("RATING DE UPDATAT: " + rating.getRestaurantID() + " " + rating.getUserID());
+        System.out.println(rating.getGrade());
+
+        Connection c = DriverManager
+                .getConnection("jdbc:postgresql://localhost:5432/restaurant",
+                        "postgres", "12345");
+
+        Statement st = c.createStatement();
+        st.executeUpdate("UPDATE rating SET grade = " + rating.getGrade() + " where username = '"
+        + rating.getUserID() + "' and id_restaurant = " + rating.getRestaurantID());
+        c.close();
+
+        return "redirect:/restaurant/" + rating.getRestaurantID();
+    }
+
 
     @PostMapping("/restaurant/submitComment")
     public String submitComment(@ModelAttribute Comment comment, @RequestParam(value = "restaurantId",  required = false)

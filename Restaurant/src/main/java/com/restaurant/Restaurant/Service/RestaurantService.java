@@ -2,6 +2,7 @@ package com.restaurant.Restaurant.Service;
 
 import com.restaurant.Restaurant.Model.Comment;
 import com.restaurant.Restaurant.Model.Franchise;
+import com.restaurant.Restaurant.Model.Rating;
 import com.restaurant.Restaurant.Model.Restaurant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -82,5 +83,21 @@ public class RestaurantService {
                 rs.getString(3));
 
         return franchise;
+    }
+
+    public Rating getRatingOfUserForRestaurant(int restaurantID, String username) throws SQLException {
+        Connection c = DriverManager
+                .getConnection("jdbc:postgresql://localhost:5432/restaurant",
+                        "postgres", "12345");
+
+        PreparedStatement pst = c.prepareStatement("SELECT * FROM rating WHERE id_restaurant = " + restaurantID +
+                " and username = '" + username + "'");
+        ResultSet rs = pst.executeQuery();
+
+        if (!rs.next())
+            return null;
+        else {
+            return new Rating(rs.getInt(1), rs.getString(2), rs.getInt(3));
+        }
     }
 }
