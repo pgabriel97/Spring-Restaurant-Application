@@ -2,12 +2,13 @@ package com.restaurant.Restaurant.Service;
 
 import com.restaurant.Restaurant.Model.Reservation;
 
+import java.text.ParseException;
 import java.util.List;
 
 public interface ReservationService {
     List<Reservation> findAll();
 
-    void insertReservation (Reservation reservation, String rest_id);
+    void insertReservation (Reservation reservation, String rest_id, String user_id) throws ParseException;
 
     void updateReservation(Reservation reservation);
 

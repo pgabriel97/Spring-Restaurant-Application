@@ -1,5 +1,7 @@
 package com.restaurant.Restaurant.Model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Time;
@@ -24,6 +26,7 @@ public class Reservation implements Serializable {
     @Column(name = "start_date")
     private String start_date;
 
+    //@DateTimeFormat(pattern="yyyy-MM-dd'T'hh:mm")
     @Column(name = "start_time")
     private String start_time;
 
@@ -39,7 +42,7 @@ public class Reservation implements Serializable {
     }
 
     public void setStart_date(String start_date) {
-        this.start_date = start_date;
+       this.start_date = start_date;
     }
 
     public void setGuest_number(String guest_number) {
@@ -63,7 +66,7 @@ public class Reservation implements Serializable {
     }
 
     public String getStart_date() {
-        return start_date;
+       return start_date;
     }
 
     public String getGuest_number() {

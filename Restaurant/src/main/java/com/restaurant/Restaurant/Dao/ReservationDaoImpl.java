@@ -9,8 +9,16 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
+import java.util.Locale;
 
 @Repository
 public class ReservationDaoImpl implements ReservationDao {
@@ -24,17 +32,19 @@ public class ReservationDaoImpl implements ReservationDao {
         return template.query("select * from reservation", new ReservationRowMapper());
     }
     @Override
-    public void insertReservation(Reservation reservation, String rest_id) {
-        final String sql = "insert into reservation(id_restaurant, id_user , start_date, start_time, guest_number) " +
+    public void insertReservation(Reservation reservation, String rest_id, String user_id) throws ParseException {
+        final String sql = "insert into reservation(id_restaurant, id_user, start_date, start_time, guest_number) " +
                 "values(:id_restaurant, :id_user, :start_date, :start_time, :guest_number)";
         KeyHolder holder = new GeneratedKeyHolder();
-
+        //LocalDateTime.parse(reservation.getStart_time() ));//.atZone(ZoneId.systemDefault()).toInstant();
+       // Time t = d.getTime();
         SqlParameterSource param = new MapSqlParameterSource()
-                .addValue("id_restaurant", rest_id)
-                .addValue("id_user", ( reservation.getId_user()))
-                .addValue("start_date", reservation.getStart_date())
-                .addValue("start_time", reservation.getStart_time())
-                .addValue("guest_number", reservation.getGuest_number());
+                .addValue("id_restaurant", Integer.parseInt(rest_id))
+                .addValue("id_user", user_id)
+                .addValue("start_date", Date.valueOf(reservation.getStart_date()))
+                .addValue("start_time", new java.sql.Time(new SimpleDateFormat("HH:mm").parse(reservation.getStart_time()).getTime()))
+                //.addValue("start_time", t)
+                .addValue("guest_number", Integer.parseInt(reservation.getGuest_number()));
         template.update(sql,param, holder);
     }
 

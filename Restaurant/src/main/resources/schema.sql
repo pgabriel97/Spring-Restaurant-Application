@@ -23,5 +23,5 @@ CREATE TABLE IF NOT EXISTS COMMENT (ID_COMMENT TEXT NOT NULL, ID_RESTAURANT INT 
                                    COMMENT_TEXT TEXT NOT NULL, PRIMARY KEY (ID_COMMENT));
 
 CREATE TABLE IF NOT EXISTS RESERVATION (ID_RESTAURANT INT NOT NULL, ID_USER varchar(20) NOT NULL,
-                                  START_DATE date NOT NULL, start_time time not null,GUEST_NUMBER INT NOT NULL,
+                                  start_date date not null, start_time time not null,GUEST_NUMBER INT NOT NULL,
                                   PRIMARY KEY (ID_RESTAURANT, ID_USER));

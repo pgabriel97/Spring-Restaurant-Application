@@ -5,6 +5,7 @@ import com.restaurant.Restaurant.Model.Reservation;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.text.ParseException;
 import java.util.List;
 
 @Component
@@ -16,8 +17,8 @@ public class ReservationServiceImpl implements ReservationService{
         return reservationDao.findAll();
     }
     @Override
-    public void insertReservation(Reservation reservation, String rest_id) {
-        reservationDao.insertReservation(reservation, rest_id);
+    public void insertReservation(Reservation reservation, String rest_id, String user_id) throws ParseException {
+        reservationDao.insertReservation(reservation, rest_id, user_id);
 
     }
     @Override
