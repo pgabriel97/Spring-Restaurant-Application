@@ -21,25 +21,33 @@
         <p style="color: red">Error!</p>
 
     </div>
-    <form th:action="@{/makeReservation/(${restaurantId})}" method="get" modelAttribute="Reservation">
-        <div class="form-group">
-            <label for="start_date">Start Date: </label>
-            <input type="date" class="form-control" id="start_date" placeholder="Enter startdate" name="start_date"/>
+    <div>
+        <tr th:if="${reservations.empty}">
+            <td colspan="2"> No Reservations Available </td>
+        </tr>
+                <table class="table">
+                    <thead class="head-light">
+                    <tr>
+                        <th scope="col">  User </th>
+                        <th scope="col"> Restaurant </th>
+                        <th scope="col"> Date </th>
+                        <th scope="col" > Time </th>
+                        <th scope="col" > Guest Number </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="reservation : ${reservations}">
+                        <td th:text="${reservation.id_user}"></td>
+                        <td th:text="${reservation.id_restaurant}"></td>
+                        <td th:text="${reservation.start_date}"></td>
+                        <td th:text="${reservation.start_time}"></td>
+                        <td th:text="${reservation.guest_number}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="start_time">Start Time: </label>
-            <input type="time" class="form-control" id="start_time" placeholder="Enter starttime" name="start_time"/>
-        </div>
-        <div class="form-group">
-            <label for="guest_number">Guest Number: </label>
-            <input type="number" class="form-control" id="guest_number" placeholder="Enter guest number" name="guest_number"/>
-        </div>
-        <div class="form-group" >
-            <label hidden for="user_id"></label>
-            <input type="hidden" class="form-control" id="user_id" th:name="user_id" th:value="${#authentication.getPrincipal().getUsername()}"/>
-        </div>
-            <button type="submit" class="btn btn-primary btn-block">Submit</button>
-    </form>
+    </div>
 </div>
 </body>
 </html>
