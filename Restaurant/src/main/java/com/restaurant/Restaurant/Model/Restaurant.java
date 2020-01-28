@@ -1,13 +1,13 @@
 package com.restaurant.Restaurant.Model;
 
 public class Restaurant {
-    private final int id;
-    private final int brandId;
-    private final String name;
-    private final String address;
-    private final int seatCount;
-    private final int menuId;
-    private final String imageURL;
+    private  int id;
+    private  int brandId;
+    private  String name;
+    private  String address;
+    private  int seatCount;
+    private  int menuId;
+    private  String imageURL;
 
     public Restaurant(int id, int brandId, String name, String address, int seatCount, int menuId, String imageURL) {
         this.id = id;
@@ -17,6 +17,9 @@ public class Restaurant {
         this.seatCount = seatCount;
         this.menuId = menuId;
         this.imageURL = imageURL;
+    }
+
+    public Restaurant() {
     }
 
     public int getId() {
@@ -37,6 +40,34 @@ public class Restaurant {
 
     public int getSeatCount() {
         return seatCount;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setBrandId(int brandId) {
+        this.brandId = brandId;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setSeatCount(int seatCount) {
+        this.seatCount = seatCount;
+    }
+
+    public void setMenuId(int menuId) {
+        this.menuId = menuId;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 
     public int getMenuId() {

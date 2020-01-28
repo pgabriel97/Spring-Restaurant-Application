@@ -9,16 +9,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Calendar;
+import java.sql.*;
+import java.util.*;
 import java.util.Date;
-import java.util.List;
-import java.util.UUID;
 
 @Controller
 public class RestaurantController {
@@ -151,4 +147,113 @@ public class RestaurantController {
         c.close();
         return "redirect:/restaurant/" + restaurantID;
     }
+
+
+    @GetMapping("/restaurant/addRestaurant")
+    public String addRestaurant(Model model) throws SQLException {
+
+        Restaurant restaurant = new Restaurant();
+        model.addAttribute("emptyRestaurant", restaurant);
+
+        Connection c = DriverManager
+                .getConnection("jdbc:postgresql://localhost:5432/restaurant",
+                        "postgres", "12345");
+
+        PreparedStatement pst = c.prepareStatement("SELECT * FROM franchise");
+        ResultSet rs = pst.executeQuery();
+
+        List<Franchise> franchiseList = new ArrayList<>();
+
+        while (rs.next()) {
+            Franchise franchise = new Franchise(rs.getInt(1), rs.getString(2), rs.getString(3));
+            franchiseList.add(franchise);
+        }
+
+        c.close();
+
+        model.addAttribute("franchiseList", franchiseList);
+
+        return "add_restaurant";
+    }
+
+
+    @PostMapping("/restaurant/addRestaurant")
+    public String addRestaurant(@ModelAttribute("emptyRestaurant") Restaurant restaurant) throws SQLException {
+        Connection c = DriverManager
+                .getConnection("jdbc:postgresql://localhost:5432/restaurant",
+                        "postgres", "12345");
+
+        PreparedStatement pst = c.prepareStatement("SELECT MAX(id) FROM restaurant");
+        ResultSet rs = pst.executeQuery();
+
+        rs.next();
+        int newID = rs.getInt(1) + 1;
+
+        System.out.println("APARTINE DE FRANCIZA: " + restaurant.getBrandId());
+
+        Statement st = c.createStatement();
+        st.executeUpdate("INSERT INTO restaurant (id, brand_id, name, address, seat_count, menu_id, grade, img)" +
+                " values (" + newID + ", " + restaurant.getBrandId() + ", '" + restaurant.getName() + "', '" + restaurant.getAddress() + "', " +
+                restaurant.getSeatCount() + ", 1, 0, 'default.png')");
+        c.close();
+
+        return "redirect:/restaurant/" + newID;
+    }
+
+
+
+
+    @GetMapping("/restaurant/editRestaurant/{id}")
+    public String editRestaurant(Model model, @PathVariable int id) throws SQLException {
+
+        RestaurantService restaurantService = new RestaurantService();
+
+        Restaurant restaurant = restaurantService.getRestaurantById(id);
+        model.addAttribute("id", restaurant.getId());
+        model.addAttribute("myRestaurant", restaurant);
+
+        Connection c = DriverManager
+                .getConnection("jdbc:postgresql://localhost:5432/restaurant",
+                        "postgres", "12345");
+
+        PreparedStatement pst = c.prepareStatement("SELECT * FROM franchise");
+        ResultSet rs = pst.executeQuery();
+
+        List<Franchise> franchiseList = new ArrayList<>();
+
+        while (rs.next()) {
+            Franchise franchise = new Franchise(rs.getInt(1), rs.getString(2), rs.getString(3));
+            franchiseList.add(franchise);
+        }
+
+        c.close();
+
+        //model.addAttribute("franchiseList", franchiseList);
+
+        return "edit_restaurant";
+    }
+
+
+//    @PostMapping("/restaurant/editRestaurant/{id}")
+//    public String editRestaurant(@ModelAttribute("emptyRestaurant") Restaurant restaurant) throws SQLException {
+//        Connection c = DriverManager
+//                .getConnection("jdbc:postgresql://localhost:5432/restaurant",
+//                        "postgres", "12345");
+//
+//        PreparedStatement pst = c.prepareStatement("SELECT MAX(id) FROM restaurant");
+//        ResultSet rs = pst.executeQuery();
+//
+//        rs.next();
+//        int newID = rs.getInt(1) + 1;
+//
+//        System.out.println("APARTINE DE FRANCIZA: " + restaurant.getBrandId());
+//
+//        Statement st = c.createStatement();
+//        st.executeUpdate("INSERT INTO restaurant (id, brand_id, name, address, seat_count, menu_id, grade, img)" +
+//                " values (" + newID + ", " + restaurant.getBrandId() + ", '" + restaurant.getName() + "', '" + restaurant.getAddress() + "', " +
+//                restaurant.getSeatCount() + ", 1, 0, 'default.png')");
+//        c.close();
+//
+//        return "redirect:/restaurant/" + newID;
+//    }
 }
