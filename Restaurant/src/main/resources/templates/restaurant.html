@@ -1,5 +1,5 @@
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title th:text="${restaurantName}">Nume restaurant</title>
@@ -112,7 +112,7 @@
     <div class="panel panel-primary col-sm-12">
         <div class="panel-heading">
             <h3><span th:text="${restaurantName}">Nume restaurant</span> &emsp;(<span
-                    th:text="${averageRating}">Rating</span> / 10) &emsp; <a id="edit" th:href="@{'/restaurant/editRestaurant/' + ${restaurantId}}">Edit</a></h3>
+                    th:text="${averageRating}">Rating</span> / 10) &emsp; <div sec:authorize = "hasRole('ROLE_ADMIN')"><a id="edit" th:href="@{'/restaurant/editRestaurant/' + ${restaurantId}}">Edit</a></div></h3>
         </div>
         <div class="panel-body">
             <br>
