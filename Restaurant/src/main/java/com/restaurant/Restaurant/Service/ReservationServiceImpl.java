@@ -13,8 +13,8 @@ public class ReservationServiceImpl implements ReservationService{
     @Resource
     ReservationDao reservationDao;
     @Override
-    public List<Reservation> findAll() {
-        return reservationDao.findAll();
+    public List<Reservation> findAll(String userId) {
+        return reservationDao.findAll(userId);
     }
     @Override
     public void insertReservation(Reservation reservation, String rest_id, String user_id) throws ParseException {

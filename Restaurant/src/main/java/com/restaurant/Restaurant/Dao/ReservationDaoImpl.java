@@ -17,8 +17,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 @Repository
 public class ReservationDaoImpl implements ReservationDao {
@@ -28,8 +30,11 @@ public class ReservationDaoImpl implements ReservationDao {
     }
     NamedParameterJdbcTemplate template;
     @Override
-    public List<Reservation> findAll() {
-        return template.query("select * from reservation", new ReservationRowMapper());
+    public List<Reservation> findAll(String userId) {
+        final String sql ="select * from reservation where id_user = :id";
+        Map<String, String> parameters = new HashMap<String, String>();
+        parameters.put("id", userId);
+        return template.query(sql,parameters,new ReservationRowMapper() );
     }
     @Override
     public void insertReservation(Reservation reservation, String rest_id, String user_id) throws ParseException {
