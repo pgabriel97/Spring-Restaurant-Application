@@ -50,6 +50,8 @@
         <!--Usage of models we wrote in WepAppController th:text="'Welcome to basic Bootstrap with Spring Boot created by ' + ${username} -->
         <h3 th:text="'Welcome to our app!'"></h3>
         <p th:text="'Would you like to make a reservation today? '"></p>
+        <li><a th:href="@{/register}">Register now!</a></li>
+        <li><a th:href="@{/login}">Login now!</a></li>
         <p> Pick a restaurant and add a reservation. </p>
 
     </div>

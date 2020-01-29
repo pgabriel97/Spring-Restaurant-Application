@@ -35,7 +35,7 @@ public class ReservationController {
     @GetMapping("/makeReservation")
     public String createReservation( Reservation reservation,  @RequestParam("restaurant_id") String restaurantId, @RequestParam("user_id") String userId, BindingResult bindingResult) throws ParseException {
         reservationService.insertReservation(reservation, restaurantId, userId);
-        return "reservation";
+        return "/reservation";
     }
     /*@GetMapping(value = "/ListReservation")
     public String showAll(Model model) {

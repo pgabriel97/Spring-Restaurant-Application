@@ -21,7 +21,7 @@ public class UserController {
     @PostMapping(value = "/register")
     public String createUser(User user) {
         userService.insertUser(user);
-        return "redirect:/";
+        return "/login";
     }
     @PutMapping(value = "/updateUser")
     public void updateUser(@RequestBody User user) {

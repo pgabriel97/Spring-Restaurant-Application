@@ -35,13 +35,20 @@ public class UserDaoImpl implements UserDao {
         KeyHolder holder = new GeneratedKeyHolder();
         SqlParameterSource param = new MapSqlParameterSource()
                 .addValue("username", user.getUsername())
-                .addValue("password", ("{noom}" + user.getPassword()))
+                .addValue("password", ("{noop}" + user.getPassword()))
                 .addValue("enabled", true);
         template.update(sql,param, holder);
+        final String sql2 = "insert into user_roles (username, role) " +
+                "values(:username,:role)";
+        KeyHolder holder2 = new GeneratedKeyHolder();
+        SqlParameterSource param2 = new MapSqlParameterSource()
+                .addValue("username", user.getUsername())
+                .addValue("role", "USER_ROLE");
+        template.update(sql2,param2, holder2);
     }
     @Override
     public void updateUser(User user) {
-        final String sql = "update users set username=:username, password=:{noom}password , " +
+        final String sql = "update users set username=:username, password=:{noop}password , " +
                             "enabled=:enabled where username=:username ";
         KeyHolder holder = new GeneratedKeyHolder();
         SqlParameterSource param = new MapSqlParameterSource()
@@ -52,7 +59,7 @@ public class UserDaoImpl implements UserDao {
     }
     @Override
     public void executeUpdateUser(User user) {
-        final String sql = "update users set username=:username, password=:{noom}password , " +
+        final String sql = "update users set username=:username, password=:{noop}password , " +
                 "enabled=:enabled where username=:username ";
         Map<String,Object> map=new HashMap<String,Object>();
         map.put("username", user.getUsername());
