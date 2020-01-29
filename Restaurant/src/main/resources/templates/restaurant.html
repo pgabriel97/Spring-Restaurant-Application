@@ -50,7 +50,28 @@
         font-size: 20px;
         }
 
-    </style>
+#a: {
+    text-decoration: none;
+}
+#edit:link, #edit:visited {
+    color: white;
+}
+#edit:hover {
+    color: white;
+}
+
+#edit_comment: {
+    text-decoration: none;
+}
+
+#edit_comment:link, edit_comment:visited {
+    color: blue;
+}
+#edit_comment:hover {
+    color: blue;
+}
+
+</style>
 
 </head>
 
@@ -91,7 +112,7 @@
     <div class="panel panel-primary col-sm-12">
         <div class="panel-heading">
             <h3><span th:text="${restaurantName}">Nume restaurant</span> &emsp;(<span
-                    th:text="${averageRating}">Rating</span> / 10)</h3>
+                    th:text="${averageRating}">Rating</span> / 10) &emsp; <a id="edit" th:href="@{'/restaurant/editRestaurant/' + ${restaurantId}}">Edit</a></h3>
         </div>
         <div class="panel-body">
             <br>
@@ -181,7 +202,7 @@
             <h1>Recenzii pentru <span th:text="${restaurantName}">Nume restaurant</span></h1>
             <ul th:each="comment : ${commentList}">
                 <li> Scris de <span th:text="${comment.userID}">User</span>
-                    <a th:href="${'/restaurant/deleteComment/' + {comment.restaurantID} + '/' + {comment.commentID}}" th:if="${comment.userID == currentUser}">Delete</a>
+                    <a id="edit_comment" th:href="${'/restaurant/deleteComment/' + {comment.restaurantID} + '/' + {comment.commentID}}" th:if="${comment.userID == currentUser}">Delete</a>
                 </li>
                 <li> <span th:text="${comment.comment}">Comment text</span></li>
 
