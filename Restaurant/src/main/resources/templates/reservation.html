@@ -33,6 +33,7 @@
                     <li class="active"><a href="#">Home</a></li>
                     <li><a th:href="@{/restaurant}">Restaurants</a></li>
                     <li><a th:href="@{/franchise}">Franchise</a></li>
+                    <li><a th:href="@{/reservation}">Reservations</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right" th:if="${#authorization.expression('isAuthenticated()')}" >
                     <li>Welcome, <span th:text="${#authentication.getPrincipal().getUsername()}"></span></li>

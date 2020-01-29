@@ -6,7 +6,7 @@ import java.text.ParseException;
 import java.util.List;
 
 public interface ReservationService {
-    List<Reservation> findAll();
+    List<Reservation> findAll(String userId);
 
     void insertReservation (Reservation reservation, String rest_id, String user_id) throws ParseException;
 
