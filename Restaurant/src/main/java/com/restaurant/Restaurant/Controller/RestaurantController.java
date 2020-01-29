@@ -38,6 +38,7 @@ public class RestaurantController {
         model.addAttribute("restaurantSeats", restaurantData.getSeatCount());
         model.addAttribute("franchiseName", franchiseData.getName());
         model.addAttribute("franchiseType", franchiseData.getType());
+        model.addAttribute("franchiseID", franchiseData.getId());
         model.addAttribute("reservation", "How many seats?");
         model.addAttribute("rating", "How many seats?");
         model.addAttribute("averageRating", restaurantService.getRestaurantGrade(id));

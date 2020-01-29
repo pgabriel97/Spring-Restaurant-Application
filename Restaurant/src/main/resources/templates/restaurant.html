@@ -88,7 +88,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" th:href="@{/home}">RestaurantFix</a>
+                <a class="navbar-brand" th:href="@{/}">RestaurantFix</a>
             </div>
             <div class="navbar-collapse collapse" id="navbar">
                 <ul class="nav navbar-nav">
@@ -117,7 +117,12 @@
         <div class="panel-body">
             <br>
             <div id="belongs_to_franchise">
-                <p>Apartine de franciza <b><span th:text="${franchiseName}">Franchise name</span></b></p>
+                <p>Apartine de franciza
+                    <a th:href="@{'/franchise/' + ${franchiseID}}">
+                        <b><span th:text="${franchiseName}">Franchise name</span></b>
+                    </a></p>
+
+                    <b><span th:text="${franchiseName}">Franchise name</span></b></p>
             </div>
             <img id="image" src="${srcImageURL}" th:src="${thSrcImageURL}" />
 

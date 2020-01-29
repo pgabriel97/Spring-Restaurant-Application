@@ -2,8 +2,15 @@
 
 <head>
     <meta charset="UTF-8">
-    <title th:text="${restaurantName}">Nume restaurant</title>
-
+    <title th:text="${franchiseName}">Nume restaurant</title>
+    <head>
+        <title>Franchise Home Page</title>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1" name="viewport">
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    </head>
     <style>
         body {
             background-color: #F9F9F9;
@@ -14,12 +21,12 @@
             border-radius: 5px;
         }
 
-        #franchise_name {
+        #restaurant_name {
             color: #9AD4D6;
             margin-left: 10px;
         }
 
-        #food_type {
+        #belongs_to_franchise {
             margin-top: -20px;
             font-size: 25px;
         }
@@ -34,46 +41,109 @@
         #image {
         border: solid 4px #1D314C;
         position: relative;
-        height: 100px;
+        height: 200px;
         float: right;
         margin-right: 40px;
-        margin-top: -10px;
         }
 
-        .restaurant_item {
+        #menu_item {
         font-size: 20px;
         }
 
         #lista_restaurante {
-        border: solid 4px #1D314C;
-        border-radius: 5px;
+        display: block;
         }
 
-    </style>
+#a: {
+    text-decoration: none;
+}
+#edit:link, #edit:visited {
+    color: white;
+}
+#edit:hover {
+    color: white;
+}
+
+#edit_comment: {
+    text-decoration: none;
+}
+
+#edit_comment:link, edit_comment:visited {
+    color: blue;
+}
+#edit_comment:hover {
+    color: blue;
+}
+
+</style>
 
 </head>
 
 <body>
-<div id="title_div">
-    <h1 id="franchise_name"><span th:text="${franchiseName}">Nume franciza</span> &emsp;(<span
-            th:text="${franchiseGrade}">Rating</span> / 10)</h1>
-</div>
-<div id="food_type">
-    <p>Tip de restaurant: <b><span th:text="${franchiseType}">Tipul francizei</span></b></p>
-</div>
+<div class="container">
+    <!-- Static navbar -->
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button aria-controls="navbar" aria-expanded="false" class="navbar-toggle collapsed" data-target="#navbar"
+                        data-toggle="collapse" type="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" th:href="@{/}">RestaurantFix</a>
+            </div>
+            <div class="navbar-collapse collapse" id="navbar">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a th:href="@{/restaurant}">Restaurants</a></li>
+                    <li><a th:href="@{/franchise}">Franchise</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right" th:if="${#authorization.expression('isAuthenticated()')}" >
+                    <li>Welcome, <span th:text="${#authentication.getPrincipal().getUsername()}"></span></li>
+                    <li>&nbsp&nbsp&nbsp&nbsp&nbsp</li>
+                    <li>
+                        <form method="post" th:action="@{/logout}">
+                            <input type="submit" value="Sign Out" />
+                        </form>
+                    </li>
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+    </nav>
 
-<p th:text="${franchiseGrade}">Franchise type</p>
+    <div class="panel panel-primary col-sm-12">
+        <div class="panel-heading">
+            <h3><span th:text="${franchiseName}">Nume restaurant</span></h3>
+        </div>
+        <div class="panel-body">
+            <br>
+            <div id="belongs_to_franchise">
+                <p>Tip de mâncare: <b><span th:text="${franchiseType}">Foot type</span></b></p>
+            </div>
+            <!--<img id="image" src="${srcImageURL}" th:src="${thSrcImageURL}" />-->
 
-<h1>Restaurante din franciza</h1>
-<div id="lista_restaurante">
-<ul th:each="restaurant : ${restaurantList}">
-    <li class="restaurant_item"> <img id="image" src="${'../static/images/' + {restaurant.imageURL}}" th:src="${'/images/' + {restaurant.imageURL}}" />
-        <span th:text="${restaurant.name}">Food name</span></li>
-    <li class="restaurant_item"> <span th:text="${restaurant.address}">Food name</span></li>
-    <li class="restaurant_item"> {numar_telefon}</li>
-    <li class="restaurant_item"> {email}</li>
-</ul>
+            <h1>Restaurante din franciza</h1>
+
+            <div id="lista_restaurante">
+                <ul th:each="restaurant : ${restaurantList}">
+                    <div>
+                        <a th:href="@{'/restaurant/' + ${restaurant.id}}">
+                            <b><span th:text="${restaurant.name}">Food name</span></b>
+                        </a>
+                        <!--<img id="image" src="${'../static/images/' + {restaurant.imageURL}}" th:src="${'/images/' + {restaurant.imageURL}}" />-->
+                    </div>
+                    <div>
+                    <li class="restaurant_item"> <span th:text="${restaurant.address}">Food name</span></li>
+                    <li class="restaurant_item"> {numar_telefon}</li>
+                    <li class="restaurant_item"> {email}</li>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>
-
 </body>
+
 </html>
