@@ -3,7 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="${restaurantName}">Nume restaurant</title>
-
+    <head>
+        <title>Restaurant Home Page</title>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1" name="viewport">
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    </head>
     <style>
         body {
             background-color: #F9F9F9;
@@ -48,97 +55,141 @@
 </head>
 
 <body>
-    <div id="title_div">
-        <h1 id="restaurant_name"><span th:text="${restaurantName}">Nume restaurant</span> &emsp;(<span
-                th:text="${averageRating}">Rating</span> / 10)</h1>
-    </div>
-    <form th:action="@{/makeReservation}" method="get" modelAttribute="Reservation">
-        <div class="form-group">
-            <label for="start_date">Start Date: </label>
-            <input type="date" class="form-control" id="start_date" placeholder="Enter startdate" name="start_date"/>
+<div class="container">
+    <!-- Static navbar -->
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button aria-controls="navbar" aria-expanded="false" class="navbar-toggle collapsed" data-target="#navbar"
+                        data-toggle="collapse" type="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" th:href="@{/home}">RestaurantFix</a>
+            </div>
+            <div class="navbar-collapse collapse" id="navbar">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a th:href="@{/restaurant}">Restaurants</a></li>
+                    <li><a th:href="@{/franchise}">Franchise</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right" th:if="${#authorization.expression('isAuthenticated()')}" >
+                    <li>Welcome, <span th:text="${#authentication.getPrincipal().getUsername()}"></span></li>
+                    <li>&nbsp&nbsp&nbsp&nbsp&nbsp</li>
+                    <li>
+                        <form method="post" th:action="@{/logout}">
+                            <input type="submit" value="Sign Out" />
+                        </form>
+                    </li>
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+    </nav>
+
+    <div class="panel panel-primary col-sm-12">
+        <div class="panel-heading">
+            <h3><span th:text="${restaurantName}">Nume restaurant</span> &emsp;(<span
+                    th:text="${averageRating}">Rating</span> / 10)</h3>
         </div>
-        <div class="form-group">
-            <label for="start_time">Start Time: </label>
-            <input type="time" class="form-control" id="start_time" placeholder="Enter starttime" name="start_time"/>
+        <div class="panel-body">
+            <br>
+            <div id="belongs_to_franchise">
+                <p>Apartine de franciza <b><span th:text="${franchiseName}">Franchise name</span></b></p>
+            </div>
+            <img id="image" src="${srcImageURL}" th:src="${thSrcImageURL}" />
+
+            <div th:if="${currentRating == null}"> Nu ai acordat inca o nota acestui restaurant.
+                <form action="#" method="post" th:action="@{/restaurant/submitRank}" th:object="${rating}">
+                    <select>
+                        <option>---</option>
+                        <option th:each="n : ${#numbers.sequence(1 ,10)}" th:field="*{grade}" th:text="${n}" th:value="${n}"></option>
+                        <input name="restaurantId" th:field="*{restaurantID}" type="hidden"/>
+                        <input name="userID" th:field="*{userID}" type="hidden"/>
+                        <input type="submit" value="Submit" />
+                    </select>
+                </form>
+            </div>
+            <div th:if="${currentRating != null}"> Ai acordat deja nota <b><span th:text="${currentRating.grade}">Nota acordata</span></b> acestui restaurant.
+                <form action="#" method="post" th:action="@{/restaurant/updateRank}" th:object="${rating}">
+                    <select>
+                        <option>---</option>
+                        <option th:each="n : ${#numbers.sequence(1 ,10)}" th:field="*{grade}" th:text="${n}" th:value="${n}"></option>
+                        <input name="restaurantId" th:field="*{restaurantID}" type="hidden"/>
+                        <input name="userID" th:field="*{userID}" type="hidden"/>
+                        <input type="submit" value="Submit" />
+                    </select>
+                </form>
+            </div>
+
+            <p th:text="${imageURL}"> </p>
+            <h3>Informații generale</h3>
+            <div id="info_div">
+                <ul>
+                    <li>Tip de mâncare: <span th:text="${franchiseType}">Franchise type</span></li>
+                    <li>Adresa: <span th:text="${restaurantAddress}">Restaurant address</span></li>
+                    <li>Numar de telefon: {0000}</li>
+                    <li>Email: {restaurant@mail.com}</li>
+                </ul>
+            </div>
+
+            <br>
+            <div class="panel panel-success">
+                <div class="panel-heading">Make a Reservation</div>
+                <div class="panel-body">
+                    <form method="get" modelAttribute="Reservation" th:action="@{/makeReservation}">
+                        <div class="form-group">
+                            <label for="start_date">Start Date: </label>
+                            <input class="form-control" id="start_date" name="start_date" placeholder="Enter startdate" type="date"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="start_time">Start Time: </label>
+                            <input class="form-control" id="start_time" name="start_time" placeholder="Enter starttime" type="time"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="guest_number">Guest Number: </label>
+                            <input class="form-control" id="guest_number" name="guest_number" placeholder="Enter guest number" type="number"/>
+                        </div>
+                        <div class="form-group" >
+                            <label for="user_id" hidden></label>
+                            <input class="form-control" id="user_id" th:name="user_id" th:value="${#authentication.getPrincipal().getUsername()}" type="hidden"/>
+                        </div>
+                        <div class="form-group" >
+                            <label for="restaurant_id" hidden></label>
+                            <input class="form-control" id="restaurant_id" th:name="restaurant_id" th:value="${restaurantId}" type="hidden"/>
+                        </div>
+                        <button class="btn btn-success btn-block" type="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+            <br>
+            <br>
+            <h1>Meniu</h1>
+            <ul th:each="menu : ${menuList}">
+                <li id = "menu_item"> <span th:text="${menu.foodName}">Food name</span> - <span th:text="${menu.price}">Price</span> lei</li>
+            </ul>
+
+            <h1>Scrie o recenzie:</h1>
+            <form action="#" method="post" th:action="@{/restaurant/submitComment}" th:object="${emptyComment}">
+                <textarea cols="50" name="news_content" rows="10" th:field="*{comment}"></textarea>
+                <input name="restaurantId" th:field="*{restaurantID}" type="hidden"/>
+                <input name="userID" th:field="*{userID}" type="hidden"/>
+                <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+            </form>
+
+            <h1>Recenzii pentru <span th:text="${restaurantName}">Nume restaurant</span></h1>
+            <ul th:each="comment : ${commentList}">
+                <li> Scris de <span th:text="${comment.userID}">User</span>
+                    <a th:href="${'/restaurant/deleteComment/' + {comment.restaurantID} + '/' + {comment.commentID}}" th:if="${comment.userID == currentUser}">Delete</a>
+                </li>
+                <li> <span th:text="${comment.comment}">Comment text</span></li>
+
+            </ul>
+
         </div>
-        <div class="form-group">
-            <label for="guest_number">Guest Number: </label>
-            <input type="number" class="form-control" id="guest_number" placeholder="Enter guest number" name="guest_number"/>
-        </div>
-        <div class="form-group" >
-            <label hidden for="user_id"></label>
-            <input type="hidden" class="form-control" id="user_id" th:name="user_id" th:value="${#authentication.getPrincipal().getUsername()}"/>
-        </div>
-        <div class="form-group" >
-            <label hidden for="restaurant_id"></label>
-            <input type="hidden" class="form-control" id="restaurant_id" th:name="restaurant_id" th:value="${restaurantId}"/>
-        </div>
-        <button type="submit" class="btn btn-primary btn-block">Submit</button>
-    </form>
-    <div id="belongs_to_franchise">
-        <p>Apartine de franciza <b><span th:text="${franchiseName}">Franchise name</span></b></p>
     </div>
-    <img id="image" src="${srcImageURL}" th:src="${thSrcImageURL}" />
-
-    <div th:if="${currentRating == null}"> Nu ai acordat inca o nota acestui restaurant.
-            <form action="#" th:action="@{/restaurant/submitRank}" th:object="${rating}" method="post">
-                <select>
-                    <option>---</option>
-                    <option th:each="n : ${#numbers.sequence(1 ,10)}" th:value="${n}" th:text="${n}" th:field="*{grade}"></option>
-                    <input type="hidden" th:field="*{restaurantID}" name="restaurantId"/>
-                    <input type="hidden" th:field="*{userID}" name="userID"/>
-                    <input type="submit" value="Submit" />
-                </select>
-    </form>
-    </div>
-    <div th:if="${currentRating != null}"> Ai acordat deja nota <b><span th:text="${currentRating.grade}">Nota acordata</span></b> acestui restaurant.
-        <form action="#" th:action="@{/restaurant/updateRank}" th:object="${rating}" method="post">
-            <select>
-                <option>---</option>
-                <option th:each="n : ${#numbers.sequence(1 ,10)}" th:value="${n}" th:text="${n}" th:field="*{grade}"></option>
-                <input type="hidden" th:field="*{restaurantID}" name="restaurantId"/>
-                <input type="hidden" th:field="*{userID}" name="userID"/>
-                <input type="submit" value="Submit" />
-            </select>
-        </form>
-    </div>
-
-    <p th:text="${imageURL}"> </p>
-    <h3>Informații generale</h3>
-    <div id="info_div">
-        <ul>
-            <li>Tip de mâncare: <span th:text="${franchiseType}">Franchise type</span></li>
-            <li>Adresa: <span th:text="${restaurantAddress}">Restaurant address</span></li>
-            <li>Numar de telefon: {0000}</li>
-            <li>Email: {restaurant@mail.com}</li>
-        </ul>
-    </div>
-
-    <br>
-
-    <h1>Meniu</h1>
-    <ul th:each="menu : ${menuList}">
-        <li id = "menu_item"> <span th:text="${menu.foodName}">Food name</span> - <span th:text="${menu.price}">Price</span> lei</li>
-    </ul>
-
-    <h1>Scrie o recenzie:</h1>
-    <form action="#" th:action="@{/restaurant/submitComment}" th:object="${emptyComment}" method="post">
-        <textarea name="news_content" rows="10" cols="50" th:field="*{comment}"></textarea>
-        <input type="hidden" th:field="*{restaurantID}" name="restaurantId"/>
-        <input type="hidden" th:field="*{userID}" name="userID"/>
-        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-    </form>
-
-    <h1>Recenzii pentru <span th:text="${restaurantName}">Nume restaurant</span></h1>
-    <ul th:each="comment : ${commentList}">
-        <li> Scris de <span th:text="${comment.userID}">User</span>
-            <a th:if="${comment.userID == currentUser}" th:href="${'/restaurant/deleteComment/' + {comment.restaurantID} + '/' + {comment.commentID}}">Delete</a>
-        </li>
-        <li> <span th:text="${comment.comment}">Comment text</span></li>
-
-    </ul>
-
-
+</div>
 </body>
 
 </html>
