@@ -31,6 +31,26 @@ public class RestaurantService {
         return restaurant;
     }
 
+    public List<Restaurant> getRestaurantsByRating() throws SQLException {
+        Connection c = DriverManager
+                .getConnection("jdbc:postgresql://localhost:5432/restaurant",
+                        "postgres", "12345");
+
+        PreparedStatement pst = c.prepareStatement("SELECT * from restaurant ORDER BY name");
+        ResultSet rs = pst.executeQuery();
+
+        List<Restaurant> restaurantList = new ArrayList<>();
+
+        while (rs.next()) {
+            Restaurant restaurant = new Restaurant(rs.getInt(1),
+                    rs.getInt(2), rs.getString(3), rs.getString(4),
+                    rs.getInt(5), rs.getInt(6), rs.getString(8));
+            restaurantList.add(restaurant);
+        }
+
+        return restaurantList;
+    }
+
     public float getRestaurantGrade(int id) throws SQLException {
         Connection c = DriverManager
                 .getConnection("jdbc:postgresql://localhost:5432/restaurant",

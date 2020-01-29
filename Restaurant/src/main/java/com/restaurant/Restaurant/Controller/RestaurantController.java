@@ -80,6 +80,19 @@ public class RestaurantController {
         return "restaurant";
     }
 
+    
+    @GetMapping("/restaurant")
+    public String loadRestaurantListPage(Model model) throws SQLException {
+
+        List<Restaurant> restaurantList = restaurantService.getRestaurantsByRating();
+
+        model.addAttribute("restaurantList", restaurantList);
+
+        return "main_restaurant";
+    }
+
+
+
     @PostMapping("/restaurant/submitRank")
     public String submitRank(@ModelAttribute Rating rating) throws SQLException {
 
