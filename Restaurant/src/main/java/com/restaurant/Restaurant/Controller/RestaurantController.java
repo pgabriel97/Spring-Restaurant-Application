@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.*;
 import java.util.*;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 @Controller
 public class RestaurantController {
@@ -202,14 +203,14 @@ public class RestaurantController {
 
 
 
-
     @GetMapping("/restaurant/editRestaurant/{id}")
     public String editRestaurant(Model model, @PathVariable int id) throws SQLException {
 
         RestaurantService restaurantService = new RestaurantService();
 
         Restaurant restaurant = restaurantService.getRestaurantById(id);
-        model.addAttribute("id", restaurant.getId());
+
+        model.addAttribute("id", id);
         model.addAttribute("myRestaurant", restaurant);
 
         Connection c = DriverManager
@@ -228,32 +229,29 @@ public class RestaurantController {
 
         c.close();
 
-        //model.addAttribute("franchiseList", franchiseList);
+        model.addAttribute("franchiseList", franchiseList);
 
         return "edit_restaurant";
     }
 
+    @RequestMapping(value = "/restaurant/editRestaurant/{idd}", method=RequestMethod.POST)
+    public String editRestaurant(@ModelAttribute("myRestaurant")Restaurant restaurant, @PathVariable String idd, BindingResult bindingResult) throws SQLException, InterruptedException {
+        Connection c = DriverManager
+                .getConnection("jdbc:postgresql://localhost:5432/restaurant",
+                        "postgres", "12345");
 
-//    @PostMapping("/restaurant/editRestaurant/{id}")
-//    public String editRestaurant(@ModelAttribute("emptyRestaurant") Restaurant restaurant) throws SQLException {
-//        Connection c = DriverManager
-//                .getConnection("jdbc:postgresql://localhost:5432/restaurant",
-//                        "postgres", "12345");
-//
-//        PreparedStatement pst = c.prepareStatement("SELECT MAX(id) FROM restaurant");
-//        ResultSet rs = pst.executeQuery();
-//
-//        rs.next();
-//        int newID = rs.getInt(1) + 1;
-//
-//        System.out.println("APARTINE DE FRANCIZA: " + restaurant.getBrandId());
-//
-//        Statement st = c.createStatement();
-//        st.executeUpdate("INSERT INTO restaurant (id, brand_id, name, address, seat_count, menu_id, grade, img)" +
-//                " values (" + newID + ", " + restaurant.getBrandId() + ", '" + restaurant.getName() + "', '" + restaurant.getAddress() + "', " +
-//                restaurant.getSeatCount() + ", 1, 0, 'default.png')");
-//        c.close();
-//
-//        return "redirect:/restaurant/" + newID;
-//    }
+        System.out.println("ID-UL ESTE   "+ idd);
+        Statement st = c.createStatement();
+
+        System.out.println("Eeeeee" + restaurant.getName());
+
+        String sql = "UPDATE restaurant set name = '" + restaurant.getName() + "', address = '" + restaurant.getAddress() + "', brand_id = " + restaurant.getBrandId() + ", seat_count = " + restaurant.getSeatCount() + " where id = " + restaurant.getId();
+        System.out.println("SQL   " + sql);
+        st.executeUpdate(sql);
+        //st.executeUpdate("UPDATE restaurant SET name = 'xxxxx' where id = 1");
+
+        c.close();
+
+        return "redirect:/restaurant/" + restaurant.getId();
+    }
 }

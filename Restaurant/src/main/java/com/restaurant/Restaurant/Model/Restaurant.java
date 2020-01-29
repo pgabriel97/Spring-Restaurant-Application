@@ -42,6 +42,8 @@ public class Restaurant {
         return seatCount;
     }
 
+
+
     public void setId(int id) {
         this.id = id;
     }
