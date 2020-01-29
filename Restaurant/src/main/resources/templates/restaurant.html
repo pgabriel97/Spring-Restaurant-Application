@@ -1,5 +1,6 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
 <head>
     <meta charset="UTF-8">
     <title th:text="${restaurantName}">Nume restaurant</title>
@@ -122,8 +123,6 @@
                     <a th:href="@{'/franchise/' + ${franchiseID}}">
                         <b><span th:text="${franchiseName}">Franchise name</span></b>
                     </a></p>
-
-                    <b><span th:text="${franchiseName}">Franchise name</span></b></p>
             </div>
             <img id="image" src="${srcImageURL}" th:src="${thSrcImageURL}" />
 
